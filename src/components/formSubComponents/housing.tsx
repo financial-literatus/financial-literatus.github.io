@@ -67,7 +67,7 @@ function AskAboutHousing(): JSX.Element {
  */
 function RenderConditionally(value: string) {
     console.log("housing selected option: ", value);
-    if (value != "None") {
+    if (value !== "None") {
         return <AskAboutHousing />;
     }
         return null;

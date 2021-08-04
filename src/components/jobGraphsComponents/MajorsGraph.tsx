@@ -26,7 +26,7 @@ export function MajorsGraph(): JSX.Element {
         //Link with data needed to built the graph
         const url = `https://ruby.datausa.io/api/data?PUMS Occupation=${code}&drilldowns=CIP2&measures=Total Population,Total Population MOE Appx,yocpop RCA,Record%20Count&Record%20Count>=5&Workforce Status=true&Degree=21`
 
-        if (code != "0"){
+        if (code !== "0"){
             loadBubbleGraph(url)
         }
 
@@ -84,11 +84,11 @@ export function MajorsGraph(): JSX.Element {
                     const result = response.data.data[i]
                     if (result != null) {
                      
-                        if (firstRun == true){
+                        if (firstRun === true){
                             year = result["ID Year"]
                             firstRun = false
                         }
-                        if (result["ID Year"] == year){
+                        if (result["ID Year"] === year){
                         const major: string = result["CIP2"];
                         const population: number = result["Total Population"]
                         const el: GraphItemElement = {
@@ -100,7 +100,7 @@ export function MajorsGraph(): JSX.Element {
                     } 
                 }
                 // Sort and slice temporary bubble array
-                if (array.length != 0){
+                if (array.length !== 0){
                     array = array.sort((el1: GraphItemElement, el2: GraphItemElement) => sortByNumber(el1, el2))
                     array = array.slice(0,10)
                 }

@@ -52,7 +52,7 @@ export function Education(): JSX.Element {
                       "100": "#87d068",
                     }}
                 percent={markedArticles} status="active"
-                format={(percent) => {if (percent == 100) { return "Done!" } else return percent?.toFixed(2) + "%"}}
+                format={(percent) => {if (percent === 100) { return "Done!" } else return percent?.toFixed(2) + "%"}}
                 />
               </div>
               <div className="Education-left-up">

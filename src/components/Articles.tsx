@@ -44,8 +44,8 @@ function Article ( _props:{ content?: React.ReactNode } ): JSX.Element {
     return (
       <div className="CustomNode" onClick={() => {dispatch(selectArticle(id))}} style={
         {border: (!completed) ? 
-            ((selectedArticle == id) ? "2px solid #198efb" : "1px solid black") :
-            ((selectedArticle == id) ? "2px solid #198efb" : "2px solid #6cc186")}}>
+            ((selectedArticle === id) ? "2px solid #198efb" : "1px solid black") :
+            ((selectedArticle === id) ? "2px solid #198efb" : "2px solid #6cc186")}}>
         <h4 className="Node-text">{ArticleList[id].label} </h4> 
           <div>{imageHolder()}</div>
       </div>

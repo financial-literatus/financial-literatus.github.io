@@ -1,7 +1,7 @@
 {
   "name": "financial-literatus-react",
   "version": "0.1.0",
-  "homepage": "https://financial-literatus.github.io/react",
+  "homepage": "https://financial-literatus.github.io/",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.6.2",

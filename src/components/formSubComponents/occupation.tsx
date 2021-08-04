@@ -50,7 +50,7 @@ export const Occupation: React.FC<SimJobProps> = ({onChange, value, ...props}) =
       <AutoComplete
         allowClear
         style={{ width: 200 }}
-        options={JobsList.filter((job) => {if (job.average_wage != "Unknown") return job }) as JobListElement[]}
+        options={JobsList.filter((job) => {if (job.average_wage !== "Unknown") return job }) as JobListElement[]}
         onChange={onChange}
         value={value}
         placeholder="Type your occupation here"

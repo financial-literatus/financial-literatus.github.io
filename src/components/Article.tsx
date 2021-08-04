@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../reducers";
@@ -33,12 +33,12 @@ export function Article(): JSX.Element {
   function toggleCompleted(){
     const allMarkedExceptOne = (completedArticles.length-2)/(ArticleList.length-1) * 100
     const tempArray: boolean[] = completedArticles;
-    if (tempArray[selectedArticle] == false && markedArticles == allMarkedExceptOne) {
+    if (tempArray[selectedArticle] === false && markedArticles === allMarkedExceptOne) {
       FinalConfetti.current?.handlerClickStart()
       setTimeout(() => FinalConfetti.current?.handlerClickPause(), 2700);
       message.success("Education is completed! Congratulations!");
     }
-    else if (tempArray[selectedArticle] == false)
+    else if (tempArray[selectedArticle] === false)
       Confetti.current?.handlerFire()
     tempArray[selectedArticle] = !tempArray[selectedArticle];
     dispatch(updateCompletedArticles(tempArray))

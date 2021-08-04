@@ -24,7 +24,7 @@ export function SkillsGraph (): JSX.Element {
 
         //Link with data needed to built the graph
         const url = `https://ruby.datausa.io/api/data?measure=LV%20Value,RCA&PUMS%20Occupation=${code}&drilldowns=Skill%20Element&parents=true`
-        if (code != "0"){
+        if (code !== "0"){
             loadBubbleGraph(url)
         }
         interface SkillsJSON {
@@ -84,11 +84,11 @@ export function SkillsGraph (): JSX.Element {
                     const result = response.data.data[i]
                     if (result != null) {
                      
-                        if (firstRun == true){
+                        if (firstRun === true){
                             year = result["ID Year"]
                             firstRun = false
                         }
-                        if (result["ID Year"] == year){
+                        if (result["ID Year"] === year){
                         const skill: string = result["Skill Element"];
                         const value: number = result["LV Value"]
                         const el: GraphItemElement = {
@@ -100,7 +100,7 @@ export function SkillsGraph (): JSX.Element {
                     } 
                 }
                 // Sort and slice temporary array of data elements
-                if (array.length != 0){
+                if (array.length !== 0){
                     array = array.sort((el1: GraphItemElement, el2: GraphItemElement) => sortByNumber(el1, el2))
                     array = array.slice(0,10)
                 }

@@ -40,7 +40,7 @@ export const SimulationHelper: React.FC = (): JSX.Element => {
                     <Divider orientation="left" plain><h3>Useful Sites</h3></Divider>
                     <div className="Sim-Helper-Cards">
                         <Space split={<Divider type="vertical"/>} wrap>
-                            {links?.filter((item) => item.type=="site")
+                            {links?.filter((item) => item.type==="site")
                             .map((item, index) => (
                                 <Typography.Link key={index} href={item.url} target="_blank" rel="noreferrer noopener">{item.source}</Typography.Link>
                             )) || "-"
@@ -50,7 +50,7 @@ export const SimulationHelper: React.FC = (): JSX.Element => {
                     <Divider  orientation="left" plain><h3>Articles</h3></Divider>
                     <div className="Sim-Helper-Cards">
                         <Space split={<Divider type="vertical"/>} wrap>
-                            {links?.filter((item) => item.type=="article")
+                            {links?.filter((item) => item.type==="article")
                             .map((item, index) => (
                                 <Typography.Link key={index} href={item.url} target="_blank" rel="noreferrer noopener">{item.source}</Typography.Link>
                             )) || "-"

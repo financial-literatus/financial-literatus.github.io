@@ -63,7 +63,7 @@ function AskOtherTransport() {
 
 function RenderConditionally(value: string): JSX.Element | null {
     console.log("Transportation selected value: ", value);
-    if (value != "None") {
+    if (value !== "None") {
         return <AskOtherTransport/>
     }
         return null;

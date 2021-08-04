@@ -63,7 +63,7 @@ export default function SimReport(): JSX.Element {
      * @returns the wage
      */
     function findSelectedJobWage(JobList: Array<JobListElement>, target: string): string {
-        return JobList.find((job) => job.value == target)?.average_wage || "Target is not found!";
+        return JobList.find((job) => job.value === target)?.average_wage || "Target is not found!";
     }
     
     /**
@@ -72,7 +72,7 @@ export default function SimReport(): JSX.Element {
      * @returns true if the array is empty; otherwise, false
      */
     function isEmpty(array: Array<any>): boolean {
-        return array.length == 0;
+        return array.length === 0;
     }
 
     /**
@@ -91,7 +91,7 @@ export default function SimReport(): JSX.Element {
     let remainingIncome = 0
     
     //console.log("job earing", job_earning)
-    if (job_earning != 0) {
+    if (job_earning !== 0) {
         remainingIncome = calculateBalance(
             job_earning, 
             housing_expense, 
@@ -117,25 +117,25 @@ export default function SimReport(): JSX.Element {
     // if statements check whether the user has selected each category and 
     // add the data for the pie chart after each category data is updated
 
-    if (job != "None") {
+    if (job !== "None") {
         NewNivoPieChartDataArray.push({ "id": "Savings", "value": remainingIncome, "color": "#00bb77"});
     }
 
-    if (housing_type != "None") {
+    if (housing_type !== "None") {
         NewNivoPieChartDataArray.push({ "id": "Housing", "value": housing_expense, "color": "#ff2f50"});
     }
-    if (transportation != "None" && transportation != "car") {
+    if (transportation !== "None" && transportation !== "car") {
         NewNivoPieChartDataArray.push({ "id": transportation, "value": transportation_expense, "color": "#d73027"});
     } 
 
-    if (transportation == "car") {
+    if (transportation === "car") {
         NewNivoPieChartDataArray.push({"id": "Gas", "value": car_gas_expense, "color": "#fee08b"});
         NewNivoPieChartDataArray.push({"id": "Maintenance", "value": car_maintenance,  "color": "#f46d43"});
     }
-    if (health_expense != 0) {
+    if (health_expense !== 0) {
         NewNivoPieChartDataArray.push({ "id": "Health insurance", "value": health_expense, "color": "#fdae61"});
     }
-    if (mischellaneous != undefined) {
+    if (mischellaneous !== undefined) {
         mischellaneous.forEach((item) => item != null && addToChart(item));
     }
 
@@ -175,7 +175,7 @@ export default function SimReport(): JSX.Element {
     .map((item: MischellaneousProps) => (
     <li>{item.description}</li>
     ))
-    if ( tempValue.length == 0 )
+    if ( tempValue.length === 0 )
         return "-"    
     return tempValue
   }
