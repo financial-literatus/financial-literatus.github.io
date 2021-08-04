@@ -1,0 +1,27 @@
+[
+    {
+        "source": "DataUsa.io | Occupation",
+        "type": "site",
+        "url": "https://datausa.io/search/?q=&dimension=PUMS%20Occupation&hierarchy=Detailed%20Occupation"
+    },
+    {
+        "source": "U.S. Bureau of Labor Statistics | Handbook for Career Search",
+        "type": "site",
+        "url": "https://www.bls.gov/ooh/"
+    },
+    {
+        "source": "Indeed | Find jobs",
+        "type": "site",
+        "url": "https://www.indeed.com/"
+    },
+    {
+        "source": "Khan Academy | Navigating Your Career",
+        "type": "article",
+        "url": "https://www.khanacademy.org/college-careers-more/career-content/career-profile-videos"
+    },
+    {
+        "source": "The Balance | Budget for Your Income and Necessities",
+        "type": "article",
+        "url": "https://www.thebalance.com/budget-worksheet-income-and-necessities-453596"
+    }
+]

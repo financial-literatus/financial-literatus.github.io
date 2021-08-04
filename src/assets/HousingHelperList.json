@@ -1,0 +1,47 @@
+[
+    {
+        "source": "Zillow | Homes for sale",
+        "type": "site",
+        "url": "https://www.zillow.com/browse/homes/"
+    },
+    {
+        "source": "Zillow | Homes for rent", 
+        "type": "site",
+        "url": "https://www.zillow.com/homes/for_rent/"
+    },
+    {
+        "source": "Zillow | Mortage Calculator",
+        "type": "site",
+        "url": "https://www.zillow.com/mortgage-calculator/"
+    } ,
+    {
+        "source": "Zillow | Mortage Rates",
+        "type": "site",
+        "url": "https://www.zillow.com/mortgage-rates/#/location"
+    },
+    {
+        "source": "Craigslist | US",
+        "type": "site",
+        "url": "https://www.craigslist.org/about/sites#US"
+    },
+    {
+        "source": "DataUsa.io | Housing Data by State",
+        "type": "site",
+        "url": "https://datausa.io/search/?q=&dimension=Geography&hierarchy=State"
+    },
+    {
+        "source": "Fool | Average House Price by State",
+        "type": "article",
+        "url": "https://www.fool.com/the-ascent/research/average-house-price-state/"
+    },
+    {
+        "source": "Khan Academy | Renting vs Buying a Home",
+        "type": "article",
+        "url": "https://youtu.be/JNL6f1xkie4"
+    },
+    {
+        "source": "Census.gov | How the Pandemic Affected Black and White Households",
+        "type": "article",
+        "url": "https://www.census.gov/library/stories/2021/07/how-pandemic-affected-black-and-white-households.html"
+    }
+]

@@ -1,0 +1,53 @@
+.App-header {
+  height: 50px;
+  min-width: 100px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.App-header-child {
+  text-align: center;
+  flex: 1 1 auto;
+}
+.Logo {
+  position: absolute;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+.Logo-element {
+  flex: 1 1 auto;
+}
+#Logo-image {
+  width: 35px;
+  margin-top: 0px;
+  margin-left: 10px;
+  margin-right: 5px;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+#Logo-text {
+  margin-top: 8.4px;
+}
+#empty-element{
+  margin-right: auto;
+  pointer-events: none;
+}
+
+#settings{
+  margin-left: auto;
+}
+@media (max-width: 800px) {
+  .Logo {
+    display: none;
+  }
+}

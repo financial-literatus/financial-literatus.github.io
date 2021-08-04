@@ -1,0 +1,22 @@
+.Description-long{
+    text-align: justify;
+}
+.Description-short{
+    text-align: center;
+    margin-bottom: 20px;
+}   
+.Container-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+#export{
+}
+#import{
+    align-self: flex-end;
+}
+.Container-reset{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

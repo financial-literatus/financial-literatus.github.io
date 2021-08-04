@@ -1,0 +1,139 @@
+.ArticleList {
+    height: 100vh;
+}
+.bi.bi-diagram {
+    z-index: 1;
+    height: 100vh;
+    background-image: linear-gradient(to right, rgba(255,255,255, 0.85) 0 100%), url("../assets/icons/pattern.svg");
+    background-position-y: -90px;
+    background-position-x: -27px;
+    background-size: 250%;
+}
+.bi.bi-diagram .bi.bi-diagram-node{
+    position: absolute;
+    width: max-content;
+    height: max-content;
+}
+.CustomNode{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    height: max-content;
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.Node-text{
+    padding-right: 5px;
+    margin: auto;
+}
+.Completed-logo{
+    margin-right: 10px;
+    align-items: right;
+    width: 2rem;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+.UNCompleted-logo{
+    margin-right: 10px;
+    align-items: right;
+    width: 2rem;
+    filter: grayscale();
+    opacity: 0.5;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.Fireworks{
+    z-index: 100;
+}
+.Diagram {
+    margin: -10px;
+}
+.Education-progress{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 15px;
+    padding-right: 30px;
+    height: 10vh;
+    border-right: 1px solid #f0f0f0;
+}
+.Education-left-up{
+    height: 38.5vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+}
+.Education-left-down{
+    height: 53.5vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-right: 1px solid #f0f0f0;
+}
+.Unloaded-article-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 53.5vh;
+}
+.Unloaded-article-text{
+    margin-top: -75px;
+    text-align: center;
+}
+.Unloaded-article-logo{
+    margin-top: 15px;
+    height: 10rem;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+.Article-title{
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+}
+.Article-source{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    text-align: right;
+}
+.Article-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+blockquote {
+    margin: 0;
+}
+
+blockquote p {
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 5px;
+}
+
+blockquote p::before {
+    content: '\201C';
+}
+
+blockquote p::after {
+    content: '\201D';
+}

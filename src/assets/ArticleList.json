@@ -1,0 +1,114 @@
+[
+  {
+    "label": "",
+    "text": "Please select the article at the top",
+    "url": "",
+    "source": "",
+    "author": ""
+  },
+  {
+    "label": "Financial Literacy",
+    "text": "Financial literacy is the ability to understand and effectively use various financial skills, including personal financial management, budgeting, and investing. Financial literacy is the foundation of your relationship with money, and it is a lifelong journey of learning. The earlier you start, the better off you will be, because education is the key to success when it comes to money.",
+    "url": "https://www.investopedia.com/terms/f/financial-literacy.asp",
+    "source": "Investopedia",
+    "author": "- Jason Fernando, "
+  },
+  {
+    "label": "Budgeting",
+    "text": "To manage your monthly expenses, prepare for life's unpredictable events, and be able to afford big-ticket items without going into debt, budgeting is important. Keeping track of how much you earn and spend doesn't have to be drudgery, doesn't require you to be good at math, and doesn't mean you can't buy the things you want. It just means that you'll know where your money goes, you'll have greater control over your finances.",
+    "url": "https://www.investopedia.com/terms/b/budget.asp",
+    "source": "Investopedia",
+    "author": "- Akhilesh Ganti, "
+  },
+  {
+    "label": "How to Save Money",
+    "text": "For many of us, spending comes naturally. Saving, however, can take a little practice.",
+    "url": "https://www.investopedia.com/how-to-save-money-4589942",
+    "source": "Investopedia",
+    "author": "- Greg Daugherty, "
+  },
+  {
+    "label": "Budgeting Apps",
+    "text": "The best budgeting apps help you understand your income and spending, so you have maximum control over your money. Budgeting apps may connect to your bank account and credit cards to automatically download transactions and categorize your spending to match the budget you choose.",
+    "url": "https://www.investopedia.com/best-budgeting-apps-5085405",
+    "source": "Investopedia",
+    "author": "- Kate Dore, "
+  },
+  {
+    "label": "Saving vs Investing",
+    "text": "The words “saving” and “investing” are sometimes used interchangeably, but when it comes right down to it, we should be engaged in both to secure our financial future.",
+    "url": "https://www.investopedia.com/articles/investing/022516/saving-vs-investing-understanding-key-differences.asp",
+    "source": "Investopedia",
+    "author": "- Lauren Welch, "
+  },
+  {
+    "label": "Investment",
+    "text": "An investment is an asset or item acquired with the goal of generating income or appreciation. Appreciation refers to an increase in the value of an asset over time. When an individual purchases a good as an investment, the intent is not to consume the good but rather to use it in the future to create wealth. An investment always concerns the outlay of some asset today—time, money, or effort—in hopes of a greater payoff in the future than what was originally put in.",
+    "url": "https://www.investopedia.com/terms/i/investment.asp",
+    "source": "Investopedia",
+    "author": "- Adam Hayes, "
+  },
+  {
+    "label": "Stocks",
+    "text": "A stock (also known as equity) is a security that represents the ownership of a fraction of a corporation. This entitles the owner of the stock to a proportion of the corporation's assets and profits equal to how much stock they own. Units of stock are called shares.",
+    "url": "https://www.investopedia.com/terms/s/stock.asp",
+    "source": "Investopedia",
+    "author": "- Adam Hayes, "
+  },
+  {
+    "label": "Real Estate",
+    "text": "Real estate is the land along with any permanent improvements attached to the land, whether natural or man-made—including water, trees, minerals, buildings, homes, fences, and bridges. Real estate is a form of real property. It differs from personal property, which are things not permanently attached to the land, such as vehicles, boats, jewelry, furniture, and farm equipment.",
+    "url": "https://www.investopedia.com/terms/r/realestate.asp",
+    "source": "Investopedia",
+    "author": "- James Chen, "
+  },
+  {
+    "label": "Risk",
+    "text": "Risk is defined in financial terms as the chance that an outcome or investment's actual gains will differ from an expected outcome or return. Risk includes the possibility of losing some or all of an original investment.",
+    "url": "https://www.investopedia.com/terms/r/risk.asp",
+    "source": "Investopedia",
+    "author": "- James Chen, "
+  },
+  {
+    "label": "Diversification",
+    "text": "Diversification is a risk management strategy that mixes a wide variety of investments within a portfolio. A diversified portfolio contains a mix of distinct asset types and investment vehicles in an attempt at limiting exposure to any single asset or risk. The rationale behind this technique is that a portfolio constructed of different kinds of assets will, on average, yield higher long-term returns and lower the risk of any individual holding or security.",
+    "url": "https://www.investopedia.com/terms/d/diversification.asp",
+    "source": "Investopedia",
+    "author": "- Troy Segal, "
+  },
+  {
+    "label": "Personal Finance (review)",
+    "text": "Personal finance is a term that covers managing your money as well as saving and investing. It encompasses budgeting, banking, insurance, mortgages, investments, retirement planning, and tax and estate planning. The term often refers to the entire industry that provides financial services to individuals and households and advises them about financial and investment opportunities.",
+    "url": "https://www.investopedia.com/terms/p/personalfinance.asp",
+    "source": "Investopedia",
+    "author": "- Will Kenton, "
+  },
+  {
+    "label": "Credit Score",
+    "text": "A credit score is a number between 300–850 that depicts a consumer's creditworthiness. The higher the score, the better a borrower looks to potential lenders. A credit score is based on credit history: number of open accounts, total levels of debt, and repayment history, and other factors. Lenders use credit scores to evaluate the probability that an individual will repay loans in a timely manner.",
+    "url": "https://www.investopedia.com/terms/c/credit_score.asp",
+    "source": "Investopedia",
+    "author": "- Julia Kagan, "
+  },
+  {
+    "label": "Retirement Planning",
+    "text": "Retirement planning is the process of determining retirement income goals, and the actions and decisions necessary to achieve those goals. Retirement planning includes identifying sources of income, sizing up expenses, implementing a savings program, and managing assets and risk. Future cash flows are estimated to gauge whether the retirement income goal will be achieved. Some retirement plans change depending on whether you’re in, say, the United States, or Canada, which has its own system of workplace-sponsored plans.",
+    "url": "https://www.investopedia.com/terms/r/retirement-planning.asp",
+    "source": "Investopedia",
+    "author": "- Julia Kagan, "
+  },
+  {
+    "label": "Individual Retirement Account (IRA)",
+    "text": "An individual retirement account (IRA) is a tax-advantaged account that individuals use to save and invest for retirement. The Internal Revenue Service (IRS) also uses the term individual retirement arrangements (also IRAs) to broadly refer to individual retirement accounts, individual retirement annuities, and other trusts and custodial accounts that act as personal savings plans with tax advantages for setting aside money for retirement.",
+    "url": "https://www.investopedia.com/terms/i/ira.asp",
+    "source": "Investopedia",
+    "author": "- Julia Kagan, "
+  },
+  {
+    "label": "401(k) Plan",
+    "text": "A 401(k) plan is a tax-advantaged, defined-contribution retirement account offered by many employers to their employees. It is named after a section of the U.S. Internal Revenue Code. Workers can make contributions to their 401(k) accounts through automatic payroll withholding, and their employers can match some or all of those contributions. The investment earnings in a traditional 401(k) plan are not taxed until the employee withdraws that money, typically after retirement. In a Roth 401(k) plan, withdrawals can be tax-free.",
+    "url": "https://www.investopedia.com/terms/c/credit_score.asp",
+    "source": "Investopedia",
+    "author": "- Jason Fernando, "
+  }
+]

@@ -1,0 +1,134 @@
+.Simulation-Root {
+    height: 100vh;
+    /* font-family: Georgia, 'Times New Roman', Times, serif; */
+}
+
+.Simulation-left-up {
+    display: flex;
+    flex-direction: row;
+}
+
+.Simulation-middle {
+    height: 100vh;
+    margin-right: 15px;
+    margin-left: 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.Lifestyle-title{
+    padding-top: 15px;
+}
+
+.Simulation-right {
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-left: 1px solid #f0f0f0;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
+.Form-Components {
+    margin-top: 30px;
+    margin-left: 15px;
+    margin-right: 15px;
+    border: 1px solid  #91d5ff;
+    border-radius: 5px;
+    padding: 2%;
+    transition: all 0.25s ease;
+}
+
+.Form-Components:hover {
+    border: 2px solid  #91d5ff;
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgba(211, 211, 211, 0.507);
+    padding: 2%
+}
+
+.Sim-buttons{
+    margin-top: 15px;
+    margin-bottom: 120px;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.Simulation-middle::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.Simulation-right::-webkit-scrollbar {
+    display: none;
+}
+
+.Sim-Helper {
+    height: 100vh;
+}
+.Container-Helper-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.Sim-Helper-Heading{
+    padding-top: 15px;
+    padding-left: 15px;
+}
+.Sim-Helper-Icons {
+    text-align: center;
+    height: 15rem;
+}
+.Sim-Helper-Message{
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.flaticon {
+    height: 15rem;
+}
+
+.Sim-left {
+    height: 100vh;
+    border-right: 1px solid #f0f0f0;
+}
+.Sim-Summary-Heading{
+    height: 5vh;
+    padding-left: 15px;
+    padding-top: 15px;
+}
+.SavingExpenseLabel{
+    text-align: center;
+}
+.Sim-Pie-Chart {
+    height: 40vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -12px;
+    padding-bottom: 35px;
+    overflow-y: scroll;
+}
+
+.Sim-Balance {
+    height: 55vh;
+    overflow-y: scroll;
+}
+.Sim-Balance-Data{
+    padding-left: 30px;
+}
+.Sim-Balance-text{
+    margin-top: 15px;
+}
+
+.Sim-Helper-Cards {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+@media (max-width: 600px) {
+    .Simulation-left {
+        display: none;
+    }
+    .Simulation-middle {
+        float: left;
+    }
+}

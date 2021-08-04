@@ -1,0 +1,22 @@
+[
+    {
+        "source": "Tmobile | Plans",
+        "type": "site",
+        "url": "https://www.t-mobile.com/cell-phone-plans"
+    },
+    {
+        "source": "AT&T | Deals",
+        "type": "site",
+        "url": "https://www.att.com/deals/"
+    }, 
+    {
+        "source": "NerdWallet | 3 Main Budget Categories",
+        "type": "article",
+        "url": "https://www.nerdwallet.com/article/finance/budget-categories"
+    },
+    {
+        "source": "ValuePenguin | Average Household Cost of Food",
+        "type": "article",
+        "url": "https://www.valuepenguin.com/how-much-we-spend-food"
+    }
+]

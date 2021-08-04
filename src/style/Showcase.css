@@ -1,0 +1,106 @@
+.Showcase-left-up{
+  border-right: 1px solid #f0f0f0;
+  padding-bottom: 30px;
+  border-bottom:  1px solid #f0f0f0;
+
+}
+.LabelContainerFilter {
+  padding-top: 10px;
+  margin-right: 30px;
+  margin-left: 30px;
+}
+.WageContainerFilter {
+  height: 50px;  
+  margin-right: 30px;
+  margin-left: 30px;
+}
+.LabelInput {
+  width: 100%;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid #91d5ff;
+  transition: all 0.5s ease;
+}
+.LabelInput:focus {
+  outline: none;
+  border-bottom: 1px solid #198efb;
+}
+.Joblist {
+  height: calc(100vh - 160px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.Showcase-right{
+  height: 100vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.ContainerJob {
+  margin-top: 5%;
+  text-align: center;
+  margin-bottom: 10%;
+}
+.FirstRowContainer {
+  display: flex;
+  flex-direction: row;
+}
+.Description {
+  width: 100vw;
+  text-align: justify;
+  margin-top: 5%;
+  margin-right: 5%;
+  margin-left: 5%;
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+}
+.Description-title {
+  text-align: justify;
+  margin-top: 5%;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-bottom: -2.5%;
+}
+.Most-common-majors {
+  margin-top: -2.5%;
+}
+.Bubble-chart-container{
+  height: 28vw;
+  width: 28vw;
+}
+.Skills-chart-container{
+  height: 30vw;
+  width: 100%;
+  margin-right: 5%;
+  margin-left: 5%;
+  margin-bottom: 0%;
+}
+.Job-data-source{
+  text-align: right;
+  margin-top: 5%;
+  margin-right: 5%;
+}
+.Unloaded-job-container{
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.Unloaded-job-text{
+  margin-bottom: 50px;
+  text-align: center;
+}
+.Unloaded-job-logo{
+  height: 19rem;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+

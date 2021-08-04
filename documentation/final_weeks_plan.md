@@ -1,0 +1,18 @@
+# Plan 
+- [x] Create main page:
+    - [x] Information about the project and about us
+- [x] Education section: 
+    - [x] Add 15 articles from KhanAcademy and Investopedia
+    - [x] Fix the buttons selector (when the article on the graph selected, the related button from the list of article should be highlighted)
+    - [x] Add the progress bar (user can select which articles were completed)
+- [x] Showcase section:
+    - [x] Hide the data when nothing is selected 
+    - [x] Add the link to the original data at the bottom of the page
+- [ ] Simulation section:
+    - [x] Update the graph: make the chart appear before nothing is selected and add a title of the chart (choose between legend and arrow label)
+    - [x] Fix the entertainment and essentials component: the user should be able to submit the input; update the graph based on the user input
+    - [x] Add potential savings: based on the expense data, we want to indicate how many money can be saved in certain areas
+    - [x] Add a helper: while pointing the cursor to a form element, the right panel shows information about how to obtain the data (the cost of housing, the cost of health insurance, etc)
+    - [ ] Add a graph of potential income if certain amount of money is invested in S&P 500
+- [x] Settings section:
+    - [x] Add upload/download saving feature

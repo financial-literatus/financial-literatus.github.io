@@ -1,0 +1,22 @@
+[
+    {
+        "source": "The Balance | Commuting Cost",
+        "type": "article",
+        "url": "https://www.thebalance.com/how-much-does-commuting-cost-the-average-american-4175825"
+    },
+    {
+        "source": "The Motley Fool | Average Monthly Expenses",
+        "type": "article",
+        "url": "https://www.fool.com/the-ascent/research/average-monthly-expenses/"
+    },
+    {
+        "source": "USA Today | Transportation Costs by Cities",
+        "type": "article",
+        "url": "https://www.usatoday.com/story/money/2018/09/25/transportation-costs-cities-most-expensive/37866627/"
+    },
+    {
+        "source": "Bureau of Transportation Statistics",
+        "type": "site",
+        "url": "https://www.bts.gov/product/state-transportation-statistics"
+    }
+]
