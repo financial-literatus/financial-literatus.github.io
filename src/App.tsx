@@ -30,7 +30,7 @@ function App(): JSX.Element {
   
   return (
     <Router>
-      <header className="Header">
+      <div className="Header-main">
         <div className="Logo">
           <img
             className="Logo-element"
@@ -64,7 +64,7 @@ function App(): JSX.Element {
             <SettingOutlined/>
           </Menu.Item>
         </Menu>
-      </header>
+      </div>
       <div className="Body">
         <Route path="/" />
         <Redirect to="/education"></Redirect>
