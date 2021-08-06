@@ -10,7 +10,6 @@ import "../../style/Form.css"
 import { IHelperContentElement } from "../../types/helperContentElement";
 import { PlusCircleOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import FindingHouse from "../../assets/icons/finding.svg";
-
 /**
  * This method will be called when the user selects one of the housing options
  * 
@@ -62,12 +61,11 @@ function AskAboutHousing(): JSX.Element {
 
 /**
  * This method checks the optionId to render different components
- * @param value which is the optionId
- * @returns the AskAboutHousing JSX Element or null
+ * @param value string | undefined
+ * @returns JSX Element or null
  */
-function RenderConditionally(value: string) {
-    console.log("housing selected option: ", value);
-    if (value !== "None") {
+function RenderConditionally(value: string | undefined) {
+    if (value !== undefined) {
         return <AskAboutHousing />;
     }
         return null;
@@ -91,7 +89,7 @@ export const Housing:React.FC<HousingProps> = ({onChange, value}): JSX.Element =
     const dispatch = useDispatch();
 
     // housing selected option
-    const selectedOption:string = useTypedSelector(state => state.simulation.housing.value) || "None";
+    const selectedOption:string | undefined = useTypedSelector(state => state.simulation.housing.description);
 
     // description for housing
     const message = "Planning to buy a house or rent with a roommate? Whatever you are doing, the below "
@@ -108,7 +106,7 @@ export const Housing:React.FC<HousingProps> = ({onChange, value}): JSX.Element =
 
     // get label key values from HousingOptions.json
     const labels = HousingOptions.map(obj => obj.label);
-    
+
     // initialize the option state
     const [optionState, setOptionState] = React.useState({
         items: labels,
@@ -165,7 +163,7 @@ export const Housing:React.FC<HousingProps> = ({onChange, value}): JSX.Element =
                 style={{ width: 200 }}
                 placeholder="Select a housing option"
                 onChange={onChange}
-                value={value}
+                value={selectedOption || undefined}
                 dropdownRender={menu => (
                 <div>
                     {menu}

@@ -8,6 +8,7 @@ import { updateHelperContent } from "../../actions/simulationActions";
 import { IHelperContentElement } from "../../types/helperContentElement";
 import MiscHelperList from "../../assets/MiscHelperList.json";
 import Categories from "../../assets/icons/categories.svg";
+import { useTypedSelector } from "../../reducers";
 
 /**
  * 
@@ -19,6 +20,9 @@ export const Mischellaneous:React.FC = () => {
     // description for essentials and other categories
     const message = "Other categories such as food, entertainment, online shopping and etc. can relatively "
     + "drain your wallet. Check out the following links to learn more about those costs."
+    
+    // misc state
+    const miscState = useTypedSelector(state=>state.simulation.mischellaneous); 
 
     // content for mischellaneous
     const miscContent: IHelperContentElement = {
@@ -41,7 +45,7 @@ export const Mischellaneous:React.FC = () => {
             </h2>
             <Form.List name="Mischellaneous">
                 {(fields, { add, remove }) => {
-                    //console.log("Mischellaneous fields:", JSON.stringify(fields));
+                    console.log("Mischellaneous fields:", JSON.stringify(fields));
                     return (
                     <>
                         {fields.map(({ key, name, fieldKey, ...restField }) => (
@@ -69,8 +73,8 @@ export const Mischellaneous:React.FC = () => {
                                         formatter={value => `$ ${value}`.replace(inputNumberFormat, ",")}
                                         parser={value => value !== undefined? parseInt(value.replace(inputNumberParser, "")): 0}
                                         style={{ margin: "0 16px" }}
+                    
                                     />
-                                    {/* <Input placeholder="Expense"/> */}
                                 </Form.Item>
                                 <MinusCircleOutlined onClick={() => remove(name)}/>
                             </Space>

@@ -1,18 +1,20 @@
-import {IPieChartData, MischellaneousProps } from "../types/simulationType";
+import {IPieChartData} from "../types/simulationType";
 import {SimulationActionsTypesEnum  as SimulationAction} from "../types/actions";
 import { IHelperContentElement } from "../types/helperContentElement";
+import { IKeyFieldData } from "../types/fieldData";
 
 // ********************* ACTIONS FOR FORM ********************* //
 export type Action =
   | { type: SimulationAction.SELECT_JOB; payload: string }
   | { type: SimulationAction.SELECT_HOUSING; value: string}
   | { type: SimulationAction.SELECT_COMMUTE_MODE, value: string}
+  | { type: SimulationAction.SELECT_HEALTH, value: string}
   | { type: SimulationAction.SET_HOUSING_EXPENSE, payload: number}
   | { type: SimulationAction.SET_COMMUTE_EXPENSE, payload: number}
   | { type: SimulationAction.SET_GAS_EXPENSE, payload: number}
   | { type: SimulationAction.SET_MAINTENANCE, payload: number}
   | { type: SimulationAction.SET_HEALTH_EXPENSE, payload: number}
-  | { type: SimulationAction.SET_MISCHELLANEOUS, payload: Array<MischellaneousProps>}
+  | { type: SimulationAction.SET_MISCHELLANEOUS, payload: Array<IKeyFieldData>}
   | { type: SimulationAction.SET_YES_OR_NO}
   | { type: SimulationAction.CLEAR }
   | { type: SimulationAction.SAVE }
@@ -37,6 +39,11 @@ export const selectCommuteMode = (_value: string): Action => ({
   type: SimulationAction.SELECT_COMMUTE_MODE,
   value: _value,
 });
+
+export const selectHealth = (_payload: string): Action => ({
+  type: SimulationAction.SELECT_HEALTH,
+  value: _payload
+})
 
 export const setHousingExpense = (_payload: number): Action => ({
   type: SimulationAction.SET_HOUSING_EXPENSE,
@@ -64,7 +71,7 @@ export const setHealthExpense = (_payload: number): Action => ({
 });
 
 export const setMischellaneous = (
-  _payload: Array<MischellaneousProps>
+  _payload: Array<IKeyFieldData>
 ): Action => ({
   type: SimulationAction.SET_MISCHELLANEOUS,
   payload: _payload,

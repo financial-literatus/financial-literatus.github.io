@@ -14,6 +14,7 @@ export enum SimulationActionsTypesEnum {
     SET_MISCHELLANEOUS,
     SET_YES_OR_NO,
     LOAD_INITIAL_PIE_CHART,
+    SELECT_HEALTH,
     UPDATE_PIE_CHART,
     UPDATE_CONTENT,
     SAVE,

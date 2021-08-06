@@ -61,9 +61,8 @@ function AskOtherTransport() {
     )
 }
 
-function RenderConditionally(value: string): JSX.Element | null {
-    console.log("Transportation selected value: ", value);
-    if (value !== "None") {
+function RenderConditionally(value: string | undefined): JSX.Element | null {
+    if (value !== undefined) {
         return <AskOtherTransport/>
     }
         return null;
@@ -86,7 +85,7 @@ export const Transportation:React.FC<CommuteProps> = ({onChange, value}) => {
     const dispatch = useDispatch();
 
     // selected transportation option
-    const selectedOption:string = useTypedSelector(state => state.simulation.transportation.value) || "None";
+    const selectedOption:string | undefined = useTypedSelector(state => state.simulation.transportation.description);
 
     // description for transportation assistant
     const message = "If you want to know how to calculate your commuting costs, make sure to read the article "
@@ -152,7 +151,7 @@ export const Transportation:React.FC<CommuteProps> = ({onChange, value}) => {
                 placeholder={"Choose a transportation"}
                 style={{ width: 200 }}
                 onChange={onChange}
-                value={value}
+                value={selectedOption || undefined}
                 dropdownRender={menu => (
                     <div>
                         {menu}

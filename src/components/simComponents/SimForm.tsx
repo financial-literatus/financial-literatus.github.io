@@ -1,7 +1,7 @@
 import { ArrowUpOutlined, ClearOutlined, QuestionCircleOutlined, SaveOutlined } from "@ant-design/icons";
 import { BackTop, Button, Form, message, Space, Tooltip } from "antd";
 import { useDispatch } from "react-redux";
-import { clear, selectHousing, setMischellaneous, save, selectCommuteMode, selectJob} from "../../actions/simulationActions";
+import { clear, selectHousing, setMischellaneous, save, selectCommuteMode, selectJob, selectHealth} from "../../actions/simulationActions";
 import { Health } from "../formSubComponents/health";
 import { Housing } from "../formSubComponents/housing";
 import { Mischellaneous } from "../formSubComponents/miscellaneous";
@@ -54,15 +54,6 @@ export const SimulationForm: React.FC<CustomizedSimulationProps> = ({fields}): J
      * @param values any
      */
     const onFinish = (values: any) => {
-        // form.validateFields()
-        //     .then(values => {
-        //         console.log("clicked Submit: values are:", values);
-        //     })
-        //     .catch(errorInfo => {
-        //         message.error(errorInfo);
-        //     })
-        // console.log("Received values from form: ", values);
-
         try {
             dispatch(save());
             message.success("File successfully saved");
@@ -87,43 +78,43 @@ export const SimulationForm: React.FC<CustomizedSimulationProps> = ({fields}): J
                 form={form}  
                 onFinish={onFinish} 
                 fields={fields}
-                // onFieldsChange={(_, allFields) => {
-                //     //onChange(allFields);
-                //     console.log("all Fields changes:", JSON.stringify(allFields));
-                // }}
+                onFieldsChange={(_, allFields) => {
+                    //onChange(allFields);
+                    console.log("all Fields changes:", JSON.stringify(allFields));
+                }}
                 onValuesChange={(_, allValues) => {
-                    console.log("all values:", JSON.stringify(allValues));
+                    //console.log("all values:", JSON.stringify(allValues));
                     //console.log("mischellaneous data: ", JSON.stringify(allValues["Mischellaneous"]));
                     //console.log("housing data: ", JSON.stringify(allValues["housing"]));
-                    dispatch(selectJob(allValues["occupation"]));
-                    dispatch(selectHousing(allValues["housing"]));
-                    dispatch(selectCommuteMode(allValues["transportation"]));
+                    dispatch(selectJob(allValues["Occupation"]));
+                    dispatch(selectHousing(allValues["Housing"]));
+                    dispatch(selectCommuteMode(allValues["Transportation"]));
                     dispatch(setMischellaneous(allValues["Mischellaneous"]));
-                    //dispatch(selectHealth(allValues["health"]));
+                    dispatch(selectHealth(allValues["Health"]));
                     //console.log("commute:", JSON.stringify(allValues["transportation"]))
                 }}
                 validateMessages={validateMessages}
             >
                 <div  className = "Form-Components">
-                    <Form.Item name="occupation" rules={[{required: true}]}>
+                    <Form.Item name="Occupation" rules={[{required: true}]}>
                         <Occupation onChange={onchange} value="sim-job"/>
                     </Form.Item>
                 </div>
 
                 <div className = "Form-Components">
-                    <Form.Item name="housing">
+                    <Form.Item name="Housing">
                         <Housing onChange={onchange} value="housing"/>
                     </Form.Item>
                 </div>
                 
                 <div className = "Form-Components">
-                    <Form.Item name = "transportation">
+                    <Form.Item name = "Transportation">
                         <Transportation onChange={onchange} value="commute"/>
                     </Form.Item>
                 </div>
 
                 <div className = "Form-Components">
-                    <Form.Item name="health">
+                    <Form.Item name="Health">
                         <Health onChange={onchange} value="health"/>
                     </Form.Item>
                 </div>

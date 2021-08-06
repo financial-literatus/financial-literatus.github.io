@@ -1,12 +1,11 @@
 import { IHelperContentElement } from "./helperContentElement";
-
+import {IKeyFieldData} from "./fieldData";
 /**
  * Type for mischellaneous props
  */
 export type MischellaneousProps = {
     "description": string;
     "expense": string;
-    "isTouched": boolean
   };
 
 /**
@@ -22,23 +21,11 @@ export type MischellaneousProps = {
  * Simulation Interface
  */
 export interface ISimulationState {
-    job: string;
-    housing: {
-      "expense": number,
-      "value": string,
-    };
-    transportation: {
-      "expense": number,
-      "value": string,
-      "gasCost": number,
-      "maintenance": number,
-    };
-    health: {
-        "description": string,
-        "expense": number, 
-        "haveInsurance": boolean,
-    }
-    mischellaneous: Array<MischellaneousProps>;
+    job: string | undefined;
+    housing: IKeyFieldData;
+    transportation: IKeyFieldData;
+    health: IKeyFieldData;
+    mischellaneous: Array<IKeyFieldData>;
     InitialNivoPieChartDataArray: Array<IPieChartData>;
     NewNivoPieChartDataArray?: Array<IPieChartData>;
     helperContent: IHelperContentElement;

@@ -12,8 +12,18 @@ export const HousingOptions = [
  * Options for Transportation
  */
 export const TransportationOptions = [
-  { label: "Car", value: "car", optionId: 1},
-  { label: "Public Transportation", value: "public", optionId: 2 },
-  { label: "Bicycle", value: "bicycle", optionId: 3},
-  { label: "On Foot", value: "foot", optionId: 4},
+  { label: "Car", value: "car"},
+  { label: "Public Transportation", value: "public"},
+  { label: "Bicycle", value: "bicycle"},
+  { label: "On Foot", value: "foot"}
 ];
+
+/**
+ * Options for Health
+ */
+ export const HealthOptions = [
+  { label: "Insurance", value: "insurance"},
+  { label: "Health Care", value: "public" },
+  { label: "Medi-Cal", value: "medi-cal"}
+];
+

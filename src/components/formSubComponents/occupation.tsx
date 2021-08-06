@@ -6,6 +6,7 @@ import JobListElement from "../../types/jobListElement";
 import OccupationHelperList from "../../assets/OccupationHelperList.json";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import SearchJob from "../../assets/icons/search-job.svg"
+import { useTypedSelector } from "../../reducers";
 
 interface SimJobProps {
   onChange: any,
@@ -19,6 +20,9 @@ interface SimJobProps {
 export const Occupation: React.FC<SimJobProps> = ({onChange, value, ...props}) => {
 
   const dispatch = useDispatch();
+
+  // selected job
+  const selectedJob = useTypedSelector(state=>state.simulation.job);
 
   const message = "Finding a career and choosing one that fits your needs " 
   + "and social life are not very easy tasks. To help you with your career goals, "
@@ -52,7 +56,7 @@ export const Occupation: React.FC<SimJobProps> = ({onChange, value, ...props}) =
         style={{ width: 200 }}
         options={JobsList.filter((job) => {if (job.average_wage !== "Unknown") return job }) as JobListElement[]}
         onChange={onChange}
-        value={value}
+        value={selectedJob}
         placeholder="Type your occupation here"
         filterOption={(inputValue, option) =>
           option?.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
