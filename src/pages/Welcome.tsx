@@ -82,7 +82,7 @@ export function Welcome(): JSX.Element {
                         <li>Joe Wandyez</li>
                     </ul>
                     <h3>Project Repository</h3>
-                    <a type="link" target="_blank" href="https://github.com/wandyezj/financial-literatus" >https://github.com/wandyezj/financial-literatus</a>
+                    <a type="link" target="_blank" href="https://github.com/financial-literatus/financial-literatus.github.io" >https://github.com/financial-literatus/</a>
                     <a target="_blank" href="https://labs.codeday.org">
                         <img
                             className="Labs-welcome"
