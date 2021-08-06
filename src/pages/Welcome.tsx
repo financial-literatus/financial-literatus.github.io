@@ -12,7 +12,6 @@ import Labs from "../assets/icons/labs-text-color.svg";
 
 
 import "../style/Welcome.css";
-import { Link } from "react-router-dom";
 
 /**
  * Welcome page element component.

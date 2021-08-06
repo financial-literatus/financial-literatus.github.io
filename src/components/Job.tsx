@@ -92,7 +92,7 @@ export function Job(): JSX.Element {
   return (
     <div className="ContainerJob">
       <h1>{label}</h1>
-      <h2>Aveerage income (2019): <NumberFormat value={average_wage} displayType={"text"} thousandSeparator={true} prefix={"$"}/></h2>
+      <h2>Average income (2019): <NumberFormat value={average_wage} displayType={"text"} thousandSeparator={true} prefix={"$"}/></h2>
       <h1 className="Description-title"> Description</h1>
       <div className="FirstRowContainer">
         <div className="Description">{ReactHtmlParser(description)}</div>

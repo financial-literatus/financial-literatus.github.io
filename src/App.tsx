@@ -18,7 +18,7 @@ import { Settings } from "./pages/Settings";
 import { Welcome } from "./pages/Welcome";
 
 import { useDispatch } from "react-redux";
-import { toggleSettingsVisibility } from "./actions/mainActions";
+import { toggleSettingsVisibility, toggleWelcomeVisibility } from "./actions/mainActions";
 
 
 function App(): JSX.Element {
@@ -27,11 +27,15 @@ function App(): JSX.Element {
   const onSettingsOpen = () => {
     dispatch(toggleSettingsVisibility(true))
   };
+
+  function showWelcomePage(){
+    dispatch(toggleWelcomeVisibility(true))
+  }
   
   return (
     <Router>
       <div className="Header-main">
-        <div className="Logo">
+        <div className="Logo" onClick={showWelcomePage}>
           <img
             className="Logo-element"
             id="Logo-image"
@@ -45,13 +49,12 @@ function App(): JSX.Element {
         <Menu
           className="App-header"
           defaultSelectedKeys={["1"]}
-          defaultOpenKeys={["sub1"]}
           mode="horizontal"
           theme="light"
         >
           <Menu.Item className="Empty-element" id="empty-element">
           </Menu.Item>
-          <Menu.Item className="App-header-child">
+          <Menu.Item key="1" className="App-header-child">
             <Link to="/education">Education</Link>
           </Menu.Item>
           <Menu.Item className="App-header-child">

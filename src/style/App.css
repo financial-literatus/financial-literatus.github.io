@@ -5,6 +5,7 @@
 }
 .Logo {
   position: absolute;
+  cursor: pointer;
   left: 0;
   display: flex;
   flex-direction: row;
