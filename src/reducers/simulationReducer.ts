@@ -14,7 +14,7 @@ const _job:string|undefined = localStorage.getItem("job") || undefined;
 const _housingType:ISimulationState["housing"] = JSON.parse(localStorage.getItem("housing") || JSON.stringify(InitFieldState)) as ISimulationState["housing"];
 const _transportationType:ISimulationState["transportation"] = JSON.parse(localStorage.getItem("transportation") || JSON.stringify(InitFieldState)) as ISimulationState["transportation"];
 const _healthType: ISimulationState["health"] = JSON.parse(localStorage.getItem("health") || JSON.stringify(InitFieldState)) as ISimulationState["health"];
-const _mischellaneousData:ISimulationState["mischellaneous"] = JSON.parse(localStorage.getItem("mischellaneous") || JSON.stringify([])) as ISimulationState["mischellaneous"];
+const _mischellaneousData:ISimulationState["mischellaneous"] = JSON.parse("[]" || localStorage.getItem("mischellaneous")) as ISimulationState["mischellaneous"];
 
 // initialize data for pie chart
  const InitialNivoPieChartData: IPieChartData = {
@@ -128,7 +128,7 @@ export const simulationReducer = (state: ISimulationState = INITIAL_STATE, actio
             state.housing = JSON.parse(localStorage.getItem("housing") || "{}") as ISimulationState["housing"];
             state.transportation = JSON.parse(localStorage.getItem("transportation") || "{}") as ISimulationState["transportation"];
             state.health = JSON.parse(localStorage.getItem("health") || "{}") as ISimulationState["health"];
-            state.mischellaneous = JSON.parse(localStorage.getItem("mischellaneous") || "[null]") as ISimulationState["mischellaneous"];
+            state.mischellaneous = JSON.parse("[]" || localStorage.getItem("mischellaneous")) as ISimulationState["mischellaneous"];
             return state;
 
         default:

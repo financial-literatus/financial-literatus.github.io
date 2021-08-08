@@ -144,7 +144,7 @@ export const SimulationForm: React.FC<CustomizedSimulationProps> = ({fields}): J
                             </Tooltip>
                         </Form.Item>
                     </Space>
-                    </div>
+                </div>
             </Form>
         </div>
     );

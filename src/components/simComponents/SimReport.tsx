@@ -25,7 +25,6 @@ export default function SimReport(): JSX.Element {
     const transportation = useTypedSelector(state => state.simulation.transportation.description) || undefined;
     const health = useTypedSelector(state=> state.simulation.health.description) || undefined;
     const mischellaneous = useTypedSelector(state => state.simulation.mischellaneous);
-
     // earnings and expenses
     const job_earning = parseInt(findSelectedJobWage(JobsList, job)) || 0;
 
@@ -72,7 +71,7 @@ export default function SimReport(): JSX.Element {
      * @returns true if the array is empty; otherwise, false
      */
     function isEmpty(array: Array<any>): boolean {
-        return array.length === 0;
+        return array!== undefined? array.length === 0 : true;
     }
 
     /**
@@ -130,7 +129,7 @@ export default function SimReport(): JSX.Element {
         NewNivoPieChartDataArray.push({ "id": health, "value": health_expense, "color": "#fdae61"});
     }
     
-    if (mischellaneous !== undefined) {
+    if (!isEmpty(mischellaneous)) {
         mischellaneous.forEach((item) => item != null && addToChart(item));
     }
 
@@ -139,18 +138,6 @@ export default function SimReport(): JSX.Element {
     // no chart will be rendered.
     // website examples showcase many properties,
     // you'll often use just a few of them.
-
-    // don't delete yet! debugging purpose :)
-    // console.log("selected_job", job)
-    // console.log("selected housing", housing_type)
-    // console.log("sselected_transportation", transportation)
-    // console.log("selected misc", mischellaneous)
-    // console.log("is new pie chart array empty", isEmpty(NewNivoPieChartDataArray))
-    // console.log("new pie chart array data", JSON.stringify(NewNivoPieChartDataArray));
-    // console.log("housing expense: ", housing_expense)
-    // console.log("commute expense: ", transportation_expense)
-    // console.log("health expense: ", health_expense);
-    // console.log("total misc expense ", totalMiscExpense);
 
   // get expenses
   let totalExpense = 0;

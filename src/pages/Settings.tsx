@@ -80,6 +80,7 @@ export function Settings(): JSX.Element {
                 message.success(`${info.file.name} imported successfully`);
               } catch(error){
                 message.error(`${info.file.name} file upload failed.`);
+                console.log("error is catched.", error)
               }
           }
           reader.onerror = function () {
