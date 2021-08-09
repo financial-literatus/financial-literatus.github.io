@@ -50,6 +50,20 @@ export const educationReducer = ( state: EducationState = initialState, action: 
                 }
             })
             return state;
+        
+        case "LOAD_FROM_LOCAL_STORAGE":
+            state.articles_completed =  JSON.parse(localStorage.getItem("articles_completed") || "[false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]")
+            localStorage.setItem("articles_completed", JSON.stringify(state.articles_completed));
+            state.articles_marked = state.articles_completed.filter(article => article === true).length/(ArticleList.length-1) * 100
+            state.articles_completed.map((article, i) => {
+                if (i !== 0){
+                    if (article === true)
+                        state.articles_buttons_text[i-1] = "Unmark"
+                    if (article === false)
+                        state.articles_buttons_text[i-1] = "Mark"
+                }
+            })
+            return state;
 
         default:
             return state;

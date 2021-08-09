@@ -10,7 +10,7 @@ import { saveAs } from "file-saver";
 import { clear, loadFromLocalStorage } from "../actions/simulationActions";
 
 import "../style/Settings.css";
-import { updateCompletedArticles } from "../actions/educationActions";
+import { loadFromLocalStorageEducation, updateCompletedArticles } from "../actions/educationActions";
 
 /**
  * Settings element component.
@@ -53,6 +53,7 @@ export function Settings(): JSX.Element {
      */
     function updateReducers(){
       dispatch(loadFromLocalStorage())
+      dispatch(loadFromLocalStorageEducation())
     }
 
     const props = {
@@ -79,8 +80,7 @@ export function Settings(): JSX.Element {
                 updateReducers()
                 message.success(`${info.file.name} imported successfully`);
               } catch(error){
-                message.error(`${info.file.name} file upload failed.`);
-                console.log("error is catched.", error)
+                message.error(`${info.file.name} file upload failed: ${error}`);
               }
           }
           reader.onerror = function () {
