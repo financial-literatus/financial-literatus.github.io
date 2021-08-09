@@ -37,7 +37,8 @@ export function Settings(): JSX.Element {
      * 
      */
     function exportLocalStorageToFile() {
-        const data: string = JSON.stringify(localStorage)
+        let data: string = JSON.stringify(localStorage)
+        data = data.replace("undefined","[]")
         try {
             const blob = new Blob([data], {type: "text/plain;charset=utf-8"});
             saveAs(blob, "settings.data");
