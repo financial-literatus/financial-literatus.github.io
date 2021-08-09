@@ -124,8 +124,7 @@ export const simulationReducer = (state: ISimulationState = INITIAL_STATE, actio
             return state;
 
         case SimulationAction.LOAD_FROM_LOCAL_STORAGE:
-            state.job = localStorage.getItem("job") || "";
-            state.housing = JSON.parse(localStorage.getItem("housing") || "{}") as ISimulationState["housing"];
+            state.job = JSON.parse(localStorage.getItem("job") || "") as ISimulationState["job"];            state.housing = JSON.parse(localStorage.getItem("housing") || "{}") as ISimulationState["housing"];
             state.transportation = JSON.parse(localStorage.getItem("transportation") || "{}") as ISimulationState["transportation"];
             state.health = JSON.parse(localStorage.getItem("health") || "{}") as ISimulationState["health"];
             state.mischellaneous = JSON.parse(localStorage.getItem("mischellaneous") || "[null]") as ISimulationState["mischellaneous"];
