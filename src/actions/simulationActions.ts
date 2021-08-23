@@ -1,21 +1,15 @@
 import {IPieChartData} from "../types/simulationType";
 import {SimulationActionsTypesEnum  as SimulationAction} from "../types/actions";
 import { IHelperContentElement } from "../types/helperContentElement";
-import { IKeyFieldData } from "../types/fieldData";
+import { IFormField } from "../types/fieldData";
 
 // ********************* ACTIONS FOR FORM ********************* //
 export type Action =
-  | { type: SimulationAction.SELECT_JOB; payload: string }
-  | { type: SimulationAction.SELECT_HOUSING; value: string}
-  | { type: SimulationAction.SELECT_COMMUTE_MODE, value: string}
-  | { type: SimulationAction.SELECT_HEALTH, value: string}
-  | { type: SimulationAction.SET_HOUSING_EXPENSE, payload: number}
-  | { type: SimulationAction.SET_COMMUTE_EXPENSE, payload: number}
-  | { type: SimulationAction.SET_GAS_EXPENSE, payload: number}
-  | { type: SimulationAction.SET_MAINTENANCE, payload: number}
-  | { type: SimulationAction.SET_HEALTH_EXPENSE, payload: number}
-  | { type: SimulationAction.SET_MISCHELLANEOUS, payload: Array<IKeyFieldData>}
-  | { type: SimulationAction.SET_YES_OR_NO}
+  | { type: SimulationAction.UPDATE_JOB; payload: IFormField }
+  | { type: SimulationAction.UPDATE_HOUSING; payload: IFormField}
+  | { type: SimulationAction.UPDATE_TRANSPORTATION, payload: IFormField}
+  | { type: SimulationAction.UPDATE_HEALTH, payload: IFormField}
+  | { type: SimulationAction.UPDATE_MISCHELLANEOUS, payload: Array<IFormField>}
   | { type: SimulationAction.CLEAR }
   | { type: SimulationAction.SAVE }
   | { type: SimulationAction.LOAD_INITIAL_PIE_CHART}
@@ -24,61 +18,31 @@ export type Action =
   | { type: SimulationAction.LOAD_FROM_LOCAL_STORAGE};
 
 
-
-export const selectJob = (_payload: string): Action => ({
-  type: SimulationAction.SELECT_JOB,
+export const updateJob = (_payload: IFormField): Action => ({
+  type: SimulationAction.UPDATE_JOB,
   payload: _payload,
 });
 
-export const selectHousing = (_value: string): Action => ({
-  type: SimulationAction.SELECT_HOUSING,
-  value: _value,
+export const updateHousing = (_payload: IFormField): Action => ({
+  type: SimulationAction.UPDATE_HOUSING,
+  payload: _payload,
 });
 
-export const selectCommuteMode = (_value: string): Action => ({
-  type: SimulationAction.SELECT_COMMUTE_MODE,
-  value: _value,
+export const updateTransportation = (_payload: IFormField): Action => ({
+  type: SimulationAction.UPDATE_TRANSPORTATION,
+  payload: _payload,
 });
 
-export const selectHealth = (_payload: string): Action => ({
-  type: SimulationAction.SELECT_HEALTH,
-  value: _payload
+export const updateHealth = (_payload: IFormField): Action => ({
+  type: SimulationAction.UPDATE_HEALTH,
+  payload: _payload
 })
 
-export const setHousingExpense = (_payload: number): Action => ({
-  type: SimulationAction.SET_HOUSING_EXPENSE,
-  payload: _payload,
-});
-
-export const setCommuteExpense = (_payload: number): Action => ({
-  type: SimulationAction.SET_COMMUTE_EXPENSE,
-  payload: _payload,
-});
-
-export const setGasCost = (_payload: number): Action => ({
-  type: SimulationAction.SET_GAS_EXPENSE,
-  payload: _payload,
-});
-
-export const setMaintenance = (_payload: number): Action => ({
-  type: SimulationAction.SET_MAINTENANCE,
-  payload: _payload,
-});
-
-export const setHealthExpense = (_payload: number): Action => ({
-  type: SimulationAction.SET_HEALTH_EXPENSE,
-  payload: _payload,
-});
-
-export const setMischellaneous = (
-  _payload: Array<IKeyFieldData>
+export const updateMischellaneous = (
+  _payload: Array<IFormField>
 ): Action => ({
-  type: SimulationAction.SET_MISCHELLANEOUS,
+  type: SimulationAction.UPDATE_MISCHELLANEOUS,
   payload: _payload,
-});
-
-export const setYesOrNo = () : Action => ({
-  type: SimulationAction.SET_YES_OR_NO,
 });
 
 export const loadInitialPieChart = (): Action => ({

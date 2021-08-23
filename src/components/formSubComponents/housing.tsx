@@ -1,79 +1,21 @@
-import { Form, Col, InputNumber, Row, Slider, Select, Tooltip, Divider, Input} from "antd";
+import { Form, InputNumber, Select, Divider, Input} from "antd";
 import * as React from "react";
 import { useDispatch } from "react-redux";
-import { setHousingExpense, updateHelperContent } from "../../actions/simulationActions";
-import { HousingOptions } from "../../helpers/FormOptions";
-import { useTypedSelector } from "../../reducers/index";
+import { updateHelperContent } from "../../actions/simulationActions";
+import { HousingOptions } from "../../constants/FormOptions";
 import { inputNumberFormat, inputNumberParser } from "./regex";
 import HousingHelperList from "../../assets/HousingHelperList.json"
 import "../../style/Form.css"
 import { IHelperContentElement } from "../../types/helperContentElement";
-import { PlusCircleOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import FindingHouse from "../../assets/icons/finding.svg";
-/**
- * This method will be called when the user selects one of the housing options
- * 
- * @returns a JSX element that represents an additional question to get the user housing expense
- */
-function AskAboutHousing(): JSX.Element {
-    const dispatch = useDispatch();
-
-    // to keep track of the housing expense state
-    const expense = useTypedSelector(state=>state.simulation.housing.expense);
-
-    return (
-      <div className="Render-Conditionally">
-        <label>How much do you spend per month?</label>
-        <Row>
-            <Col span={6}>
-                <Slider 
-                    min={0} 
-                    max={9999} 
-                    value={expense}
-                    onChange={(event) => {
-                        if (event != null) {
-                            dispatch(setHousingExpense(event));
-                        }
-                    }}
-                />
-            </Col>
-            <Col span={4}>
-                <Form.Item>
-                    <InputNumber
-                        min={0}
-                        max={9999}
-                        formatter={value => `$ ${value}`.replace(inputNumberFormat, ",")}
-                        parser={value => value !== undefined? parseInt(value.replace(inputNumberParser, "")): 0}
-                        style={{ margin: "0 16px" }}
-                        value={expense}
-                        onChange={(event) => {
-                            if (event != null) {
-                                dispatch(setHousingExpense(event));
-                            }
-                        }}
-                    />
-                </Form.Item>
-            </Col>
-        </Row>
-        </div>
-    );
-}
-
-/**
- * This method checks the optionId to render different components
- * @param value string | undefined
- * @returns JSX Element or null
- */
-function RenderConditionally(value: string | undefined) {
-    if (value !== undefined) {
-        return <AskAboutHousing />;
-    }
-        return null;
-}
+import { housingTooltip } from "../../constants/Tooltips";
+import { HousingMessage } from "../../constants/SimHelperContent";
 
 interface HousingProps {
-    onChange: any,
-    value: any,
+    name: string,
+    expense: number,
+    handleChange: any;
 }
 
 // Option componect from Ant Select
@@ -85,20 +27,13 @@ let index = 0;
  * @returns a JSX Element that represents a question and a dropdown 
  */
 
-export const Housing:React.FC<HousingProps> = ({onChange, value}): JSX.Element => {
+export const Housing:React.FC<HousingProps> = ({handleChange, name, expense}): JSX.Element => {
     const dispatch = useDispatch();
-
-    // housing selected option
-    const selectedOption:string | undefined = useTypedSelector(state => state.simulation.housing.description);
-
-    // description for housing
-    const message = "Planning to buy a house or rent with a roommate? Whatever you are doing, the below "
-    + " are a few places you might want to look at first."
 
     // content of housing for sim helper
     const housingContent:IHelperContentElement = {
         description: {
-            message: message,
+            message: HousingMessage,
             img: FindingHouse
         },
         links: HousingHelperList
@@ -148,44 +83,58 @@ export const Housing:React.FC<HousingProps> = ({onChange, value}): JSX.Element =
 
     return (
         <div onClick={() => dispatch(updateHelperContent(housingContent))}>
-            <h2>
-                <Tooltip 
-                    placement="rightTop"
-                    title="Housing is one of the key area where we think is the most of 
-                    the budget is spent. You can learn more information about housing 
-                    prices, rent prices and mortage by clicking on this section.">
-                    Housing <QuestionCircleOutlined/>
-                </Tooltip>
-            </h2>
-            <p>Select a housing option below </p>
-            <Select
-                allowClear
-                style={{ width: 200 }}
-                placeholder="Select a housing option"
-                onChange={onChange}
-                value={selectedOption || undefined}
-                dropdownRender={menu => (
-                <div>
-                    {menu}
-                    <Divider style={{ margin: "4px 0" }} />
-                    <div style={{ display: "flex", flexWrap: "nowrap", padding: 8 }}>
-                        <Input style={{ flex: "auto" }} value={optionState.name.label} onChange={onNameChange} />
-                        <a
-                            style={{ flex: "none", padding: "8px", display: "block", cursor: "pointer" }}
-                            onClick={addItem}
-                        >
-                            <PlusCircleOutlined /> Add item
-                        </a>
+            <Form.Item
+                label={name}
+                tooltip= {housingTooltip}
+                name={[name, "description"]}   
+            >
+                <Select
+                    style={{ width: 200 }}
+                    placeholder="Select a housing option"
+                    onChange={handleChange}
+                    dropdownRender={menu => (
+                    <div>
+                        {menu}
+                        <Divider style={{ margin: "4px 0" }} />
+                        <div style={{ display: "flex", flexWrap: "nowrap", padding: 8 }}>
+                            <Input style={{ flex: "auto" }} value={optionState.name.label} onChange={onNameChange} />
+                            <a
+                                style={{ flex: "none", padding: "8px", display: "block", cursor: "pointer" }}
+                                onClick={addItem}
+                            >
+                                <PlusCircleOutlined /> Add item
+                            </a>
+                        </div>
                     </div>
-                </div>
-                )}
-            > 
-                {optionState.items.map((item) => (
-                    <Option key={item} value={item}>{item}</Option>
-                ))}
-            </Select>
-            
-            {RenderConditionally(selectedOption)}
+                    )}
+                > 
+                    {optionState.items.map((item) => (
+                        <Option key={item} value={item}>{item}</Option>
+                    ))}
+                </Select>
+            </Form.Item>
+            <Form.Item 
+                noStyle
+                shouldUpdate
+            >
+                {({getFieldValue, isFieldTouched}) => 
+                    getFieldValue(name)?.description !== undefined || isFieldTouched(name)? (
+                        <Form.Item 
+                            name={[name, "expense"]}
+                            label="Expense"
+                        >
+                            <InputNumber
+                                min={0}
+                                max={9999}
+                                formatter={value => `$ ${value}`.replace(inputNumberFormat, ",")}
+                                parser={value => value !== undefined? parseInt(value.replace(inputNumberParser, "")): 0}
+                                style={{ margin: "0 16px" }}
+                                value={expense}
+                            />
+                        </Form.Item>
+                    ): null
+                }
+            </Form.Item>
         </div>
     )
 };

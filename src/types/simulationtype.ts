@@ -1,5 +1,5 @@
 import { IHelperContentElement } from "./helperContentElement";
-import {IKeyFieldData} from "./fieldData";
+import {IFormField} from "./fieldData";
 
 /**
  * Pie Chart Data Interface
@@ -14,11 +14,11 @@ import {IKeyFieldData} from "./fieldData";
  * Simulation Interface
  */
 export interface ISimulationState {
-    "job": string | undefined;
-    "housing": IKeyFieldData;
-    "transportation": IKeyFieldData;
-    "health": IKeyFieldData;
-    "mischellaneous": Array<IKeyFieldData>;
+    "job": IFormField;
+    "housing": IFormField;
+    "transportation": IFormField;
+    "health": IFormField;
+    "mischellaneous": Array<IFormField>;
     "InitialNivoPieChartDataArray": Array<IPieChartData>;
     "NewNivoPieChartDataArray"?: Array<IPieChartData>;
     "helperContent": IHelperContentElement;

@@ -5,9 +5,8 @@ import JobsList from "../../assets/JobList.json";
 import { useTypedSelector } from "../../reducers";
 import JobListElement from "../../types/jobListElement";
 import { IPieChartData} from "../../types/simulationType";
-
 import NumberFormat from "react-number-format";
-import { IKeyFieldData } from "../../types/fieldData";
+import { IFormField } from "../../types/fieldData";
 
 /**
  * This method renders a pie chart
@@ -21,25 +20,32 @@ export default function SimReport(): JSX.Element {
 
     // category
     const job = useTypedSelector(state => state.simulation.job) || undefined;
-    const housing_type= useTypedSelector(state => state.simulation.housing.description) || undefined;
-    const transportation = useTypedSelector(state => state.simulation.transportation.description) || undefined;
-    const health = useTypedSelector(state=> state.simulation.health.description) || undefined;
+    const housing = useTypedSelector(state => state.simulation.housing) || undefined;
+    const transportation = useTypedSelector(state => state.simulation.transportation) || undefined;
+    const health = useTypedSelector(state => state.simulation.health) || undefined;
     const mischellaneous = useTypedSelector(state => state.simulation.mischellaneous);
+
+    // each description
+    const jobDesc = job?.description;
+    const housingDesc = housing?.description;
+    const transportationDesc = transportation?.description;
+    const healthDesc = health?.description;
+    
     // earnings and expenses
-    const job_earning = parseInt(findSelectedJobWage(JobsList, job)) || 0;
+    const job_earning = parseInt(findSelectedJobWage(JobsList, job.description)) || 0;
 
     // since we collect expenses data for a month, we will multiply by 12 
     // to estimate the yearly expenses
-    const housing_expense = 12*useTypedSelector(state => state.simulation.housing.expense) || 0;
-    const transportation_expense = 12*useTypedSelector(state => state.simulation.transportation.expense) || 0;
-    const health_expense = 12*useTypedSelector(state => state.simulation.health.expense) || 0;
+    const housingExp = 12*housing.expense || 0;
+    const transportationExp = 12*transportation.expense|| 0;
+    const healthExp = 12*health.expense || 0;
     
     /**
      * calculates the array of expenses from mischellaneous
      * @param _input Array<MischellaneousProps>
      * @returns number - total mischellaneous expense
      */
-    function calculateTotalMiscExpense(_input: Array<IKeyFieldData>): number {
+    function calculateTotalMiscExpense(_input: Array<IFormField>): number {
         let total = 0;
         
         const temp:number[] = [];
@@ -93,9 +99,9 @@ export default function SimReport(): JSX.Element {
     if (job_earning !== 0) {
         remainingIncome = calculateBalance(
             job_earning, 
-            housing_expense, 
-            transportation_expense,
-            health_expense, 
+            housingExp, 
+            transportationExp,
+            healthExp, 
             totalMiscExpense,
         )
     }
@@ -104,7 +110,7 @@ export default function SimReport(): JSX.Element {
      * This method adds mischellaneous data to Pie Chart 
      * @param item MischellaneousProps
      */
-     function addToChart(item: IKeyFieldData): void {
+     function addToChart(item: IFormField): void {
         const id = item.description || "None";
         const value = 12* item.expense || 0;
         const color = "#ef3b2c";
@@ -114,19 +120,19 @@ export default function SimReport(): JSX.Element {
     // if statements check whether the user has selected each category and 
     // add the data for the pie chart after each category data is updated
 
-    if (job !== undefined) {
+    if (jobDesc !== undefined) {
         NewNivoPieChartDataArray.push({ "id": "Savings", "value": remainingIncome, "color": "#00bb77"});
     }
 
-    if (housing_type !== undefined) {
-        NewNivoPieChartDataArray.push({ "id": housing_type, "value": housing_expense, "color": "#ff2f50"});
+    if (housingDesc !== undefined) {
+        NewNivoPieChartDataArray.push({ "id": housingDesc, "value": housingExp, "color": "#ff2f50"});
     }
-    if (transportation !== undefined) {
-        NewNivoPieChartDataArray.push({ "id": transportation, "value": transportation_expense, "color": "#d73027"});
+    if (transportationDesc !== undefined) {
+        NewNivoPieChartDataArray.push({ "id": transportationDesc, "value": transportationExp, "color": "#d73027"});
     } 
 
-    if (health !== undefined) {
-        NewNivoPieChartDataArray.push({ "id": health, "value": health_expense, "color": "#fdae61"});
+    if (healthDesc !== undefined) {
+        NewNivoPieChartDataArray.push({ "id": healthDesc, "value": healthExp, "color": "#fdae61"});
     }
     
     if (!isEmpty(mischellaneous)) {
@@ -143,16 +149,16 @@ export default function SimReport(): JSX.Element {
   let totalExpense = 0;
 
   // find total expense
-  totalExpense += housing_expense + transportation_expense + health_expense + totalMiscExpense;
+  totalExpense += housingExp + transportationExp + healthExp + totalMiscExpense;
 
   /**
    * This method shows a list of saving areas from Essentials and other categories session
    * 
    * @returns JSX.Element that represents a list
    */
-  function findPotentialSavingAreas(value: IKeyFieldData[]) {
+  function findPotentialSavingAreas(value: IFormField[]) {
     const tempValue = value.filter((item) => checkExpense(item))
-    .map((item: IKeyFieldData) => (
+    .map((item: IFormField) => (
     <li>{item.description}</li>
     ))
     if ( tempValue.length === 0 )
@@ -174,7 +180,7 @@ export default function SimReport(): JSX.Element {
    * @param item MischellaneousProps
    * @returns true if validateMessages greater tham 100 bucks; otherwise, false.
    */
-  function checkExpense(item: IKeyFieldData) {
+  function checkExpense(item: IFormField) {
     return item?.expense > 100;
   }
 
@@ -198,7 +204,7 @@ export default function SimReport(): JSX.Element {
             <div className="Sim-Balance">
                 <Divider  orientation="left" plain><h3>Data</h3></Divider>
                 <div className="Sim-Balance-Data">
-                    <p className="Sim-Balance-text">Selected job - {job || "Nothing is selected"}</p>
+                    <p className="Sim-Balance-text">Selected job - {job.description || "Nothing is selected"}</p>
                     <p className="Sim-Balance-text">Annual income - <NumberFormat value={job_earning} displayType={"text"} thousandSeparator={true} prefix={"$"}/></p>
                     <p className="Sim-Balance-text">Monthly expenses - <NumberFormat value={Math.floor(totalExpense/12)} displayType={"text"} thousandSeparator={true} prefix={"$"}/></p>
                     <p className="Sim-Balance-text">Annual savings - <span style={{color: remainingIncome >=0 ? "black": "red"}}><NumberFormat value={remainingIncome} displayType={"text"} thousandSeparator={true} prefix={"$"}/></span></p>

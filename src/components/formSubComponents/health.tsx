@@ -1,80 +1,21 @@
-import { PlusCircleOutlined, QuestionCircleOutlined } from "@ant-design/icons";
-import { Col, Divider, Form, Input, InputNumber, Row, Select, Slider, Tooltip } from "antd";
+import { PlusCircleOutlined} from "@ant-design/icons";
+import { Divider, Form, Input, InputNumber, Select } from "antd";
 import * as React from "react";
 import { useDispatch } from "react-redux";
-import { setHealthExpense, updateHelperContent } from "../../actions/simulationActions";
-import { useTypedSelector } from "../../reducers/index";
+import { updateHelperContent } from "../../actions/simulationActions";
 import { inputNumberFormat, inputNumberParser } from "./regex";
 import "../../style/Form.css";
 import { IHelperContentElement } from "../../types/helperContentElement";
 import HealthHelperList from "../../assets/HealthHelperList.json";
 import MedicalIcon from "../../assets/icons/medical.svg";
-import { HealthOptions } from "../../helpers/FormOptions";
-
-/**
- * This method gets the user's health insurance expense info
- * 
- * @returns JSX.Element that represents a slider and input box for the user to enter expenses
- */
-function AskAboutHealth() {
-    const dispatch = useDispatch();
-
-    // to keep track of the health expense state
-    const expense = useTypedSelector(state=>state.simulation.health.expense);
-
-    return (
-        <div className="Render-Conditionally">
-            <label>How much do you spend per month?</label>
-            <Row>
-                <Col span={6}>
-                    <Slider 
-                        min={0} 
-                        max={9999} 
-                        value={expense}
-                        onChange={(event) => {
-                            if (event != null) {
-                                dispatch(setHealthExpense(event));
-                            }
-                        }}
-                    />
-                </Col>
-                <Col span={4}>
-                    <InputNumber
-                        name="healthExpenseInput"
-                        min={0}
-                        max={99999}
-                        formatter={value => `$ ${value}`.replace(inputNumberFormat, ",")}
-                        parser={value => value !== undefined? parseInt(value.replace(inputNumberParser, "")): 0}
-                        style={{ margin: "0 16px" }}
-                        value={expense}
-                        onChange={(event) => {
-                            if (event != null) {
-                                dispatch(setHealthExpense(event));
-                            }
-                        }}
-                    />
-                </Col>
-            </Row>
-        </div>
-    );
-}
-
-/**
- * This method calls AskAboutHealth if conditions are met.
- * 
- * @param value string | undefined
- * @returns JSX.Element when the user has health insurance; otherwise, returns null
- */
-function RenderConditionally(value: string | undefined) {
-    if (value !== undefined) {
-        return <AskAboutHealth />;
-    }
-        return null;
-}
+import { HealthOptions } from "../../constants/FormOptions";
+import { healthTooltip } from "../../constants/Tooltips";
+import { HealthMessage } from "../../constants/SimHelperContent";
 
 interface HealthProps {
     onChange: any,
-    value: any,
+    name: string,
+    expense: number
 }
 
 // Option componect from Ant Select
@@ -86,20 +27,14 @@ let index = 0;
  * This is a sub-component that represents Health
  * @returns JSX.Element that represents a question and a dropdown
  */
-export const Health:React.FC<HealthProps> = ({onChange}) => {
+export const Health:React.FC<HealthProps> = ({onChange, name, expense}):JSX.Element => {
 
     const dispatch = useDispatch();
-
-    // health selected option
-    const selectedOption: string | undefined = useTypedSelector(state=>state.simulation.health.description);
-
-    // description for health assistant
-    const message = "Refer to the links below to estimate your healthcare cost."
 
     // content for health resources
     const healthContent: IHelperContentElement = {
         description: {
-            message: message,
+            message: HealthMessage,
             img: MedicalIcon,
         },
         links: HealthHelperList
@@ -149,23 +84,15 @@ export const Health:React.FC<HealthProps> = ({onChange}) => {
         
     return(
         <div onClick={() => dispatch(updateHelperContent(healthContent))}>
-            <h2>
-                <Tooltip 
-                    placement="rightTop"
-                    title="Health is also another main area that our budget
-                    is spent. You can learn more information about health insurance
-                    plans and cost by clicking on this section."
-                >
-                    Health <QuestionCircleOutlined/>
-                </Tooltip>
-            </h2>
-            <p>Please enter or select a type of health care provider or insurance below</p>
+            <Form.Item
+                label={name}
+                tooltip= {healthTooltip}
+                name={[name, "description"]}   
+            >
                 <Select
-                    allowClear
                     style={{ width: 200 }}
-                    placeholder="Select a option"
+                    placeholder="Select a housing option"
                     onChange={onChange}
-                    value={selectedOption || undefined}
                     dropdownRender={menu => (
                     <div>
                         {menu}
@@ -182,12 +109,34 @@ export const Health:React.FC<HealthProps> = ({onChange}) => {
                     </div>
                     )}
                 > 
-                    {optionState.items.map((item) => (
-                        <Option key={item} value={item}>{item}</Option>
-                    ))}
+                {optionState.items.map((item) => (
+                    <Option key={item} value={item}>{item}</Option>
+                ))}
                 </Select>
-
-            {RenderConditionally(selectedOption)}
+            </Form.Item>
+            <Form.Item 
+                noStyle
+                shouldUpdate
+            >
+                {({getFieldValue}) => 
+                    getFieldValue(name)?.description !== undefined ? (
+                        <Form.Item 
+                            name={[name, "expense"]}
+                            label="Expense"
+                        >
+                            <InputNumber
+                                min={0}
+                                max={9999}
+                                formatter={value => `$ ${value}`.replace(inputNumberFormat, ",")}
+                                parser={value => value !== undefined? parseInt(value.replace(inputNumberParser, "")): 0}
+                                style={{ margin: "0 16px" }}
+                                value={expense || undefined}
+                                onChange={onChange}
+                            />
+                        </Form.Item>
+                    ): null
+                }
+            </Form.Item>
         </div>
     )
 };

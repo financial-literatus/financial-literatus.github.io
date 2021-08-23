@@ -2,15 +2,22 @@ import { Action } from "../actions/simulationActions";
 import {SimulationActionsTypesEnum  as SimulationAction} from "../types/actions";
 import {ISimulationState, IPieChartData} from "../types/simulationType";
 import AssistantLogo from "../assets/icons/assistant.svg"
-import { IKeyFieldData } from "../types/fieldData";
+import { IFormField } from "../types/fieldData";
 
-const InitFieldState:IKeyFieldData = {
+const InitFieldState:IFormField = {
     "expense": 0,
     "description": undefined,
 } 
 
+const InitHelperState = {
+    description: {
+        message: "More information about each section of the form will appear here.",
+        img: AssistantLogo
+    }
+}
+
 // get data from local storage for each category
-const _job:string|undefined = localStorage.getItem("job") || undefined;
+const _jobType: ISimulationState["job"] = JSON.parse(localStorage.getItem("job") || JSON.stringify(InitFieldState)) as ISimulationState["job"];
 const _housingType:ISimulationState["housing"] = JSON.parse(localStorage.getItem("housing") || JSON.stringify(InitFieldState)) as ISimulationState["housing"];
 const _transportationType:ISimulationState["transportation"] = JSON.parse(localStorage.getItem("transportation") || JSON.stringify(InitFieldState)) as ISimulationState["transportation"];
 const _healthType: ISimulationState["health"] = JSON.parse(localStorage.getItem("health") || JSON.stringify(InitFieldState)) as ISimulationState["health"];
@@ -24,7 +31,7 @@ const _mischellaneousData:ISimulationState["mischellaneous"] = JSON.parse("[]" |
 }
 
 const INITIAL_STATE: ISimulationState = {
-    job: _job,
+    job: _jobType,
     housing: _housingType,
     transportation: _transportationType,
     health: _healthType,
@@ -34,12 +41,7 @@ const INITIAL_STATE: ISimulationState = {
         InitialNivoPieChartData
     ],
     // NewNivoPieChartDataArray: new Array<IPieChartData>(),
-    helperContent: {
-        description: {
-            message: "More information about each section of the form will appear here.",
-            img: AssistantLogo
-        }
-    }
+    helperContent: InitHelperState
 }
 
 /**
@@ -52,35 +54,23 @@ const INITIAL_STATE: ISimulationState = {
 export const simulationReducer = (state: ISimulationState = INITIAL_STATE, action: Action): ISimulationState => {
     switch (action.type) {
 
-        case SimulationAction.SELECT_JOB:
+        case SimulationAction.UPDATE_JOB:
             state.job = action.payload;
             return state;
 
-        case SimulationAction.SELECT_COMMUTE_MODE:
-            state.transportation.description = action.value;           
+        case SimulationAction.UPDATE_HOUSING:
+            state.housing = action.payload;
             return state;
 
-        case SimulationAction.SELECT_HOUSING:
-            state.housing.description = action.value;
+        case SimulationAction.UPDATE_TRANSPORTATION:
+            state.transportation = action.payload;           
             return state;
 
-        case SimulationAction.SELECT_HEALTH:
-            state.health.description = action.value;
+        case SimulationAction.UPDATE_HEALTH:
+            state.health = action.payload;
             return state;
-
-        case SimulationAction.SET_HOUSING_EXPENSE:
-            state.housing.expense = action.payload;
-            return state;
-        
-        case SimulationAction.SET_COMMUTE_EXPENSE:
-            state.transportation.expense = action.payload;
-            return state;
-        
-        case SimulationAction.SET_HEALTH_EXPENSE:
-            state.health.expense = action.payload;
-            return state;
-
-        case SimulationAction.SET_MISCHELLANEOUS:
+    
+        case SimulationAction.UPDATE_MISCHELLANEOUS:
             state.mischellaneous = action.payload;
             return state;
 
@@ -105,22 +95,12 @@ export const simulationReducer = (state: ISimulationState = INITIAL_STATE, actio
         
         case SimulationAction.CLEAR:
             localStorage.clear();
-            state.job = undefined;
-            state.housing.description= undefined;  
-            state.transportation.description = undefined;
-            state.health.description = undefined;
-
-            state.transportation.expense = 0;
-            state.health.expense = 0;
-            state.housing.expense = 0;
+            state.job = InitFieldState;
+            state.housing= InitFieldState;  
+            state.transportation= InitFieldState;
+            state.health= InitFieldState;
             state.mischellaneous = [];
-
-            state.helperContent = {
-                description: {
-                    message: "More information about each section of the form will appear here.",
-                    img: AssistantLogo
-                }
-            }
+            state.helperContent = InitHelperState;
             return state;
 
         case SimulationAction.LOAD_FROM_LOCAL_STORAGE:

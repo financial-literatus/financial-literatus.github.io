@@ -1,7 +1,10 @@
-import { ArrowUpOutlined, ClearOutlined, QuestionCircleOutlined, SaveOutlined } from "@ant-design/icons";
-import { BackTop, Button, Form, message, Space, Tooltip } from "antd";
+import { ClearOutlined, QuestionCircleOutlined, SaveOutlined } from "@ant-design/icons";
+import { Button, Form, message, Space, Tooltip } from "antd";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { clear, selectHousing, setMischellaneous, save, selectCommuteMode, selectJob, selectHealth} from "../../actions/simulationActions";
+import { clear, updateHousing, updateMischellaneous, save, updateTransportation, updateJob, updateHealth} from "../../actions/simulationActions";
+import { useTypedSelector } from "../../reducers";
+import { IFormField } from "../../types/fieldData";
 import { Health } from "../formSubComponents/health";
 import { Housing } from "../formSubComponents/housing";
 import { Mischellaneous } from "../formSubComponents/miscellaneous";
@@ -38,13 +41,29 @@ export const SimulationForm: React.FC<CustomizedSimulationProps> = ({fields}): J
     const dispatch = useDispatch();
     const [form] = Form.useForm(); 
 
-    // console.log("Fields value: ", JSON.stringify(form.getFieldsValue(true)));
-    // console.log("is Mischellaneous Field touched? ", form.isFieldTouched("Mischellaneous"));
-    // console.log("is Occupation Field touched? ", form.isFieldTouched("occupation"));
+    // get each form component state
+    const selectedJob: IFormField | undefined = useTypedSelector(state=>state.simulation.job);
+    const selectedHouseOption: IFormField | undefined = useTypedSelector(state => state.simulation.housing);
+    const selectedCommuteOption: IFormField | undefined = useTypedSelector(state => state.simulation.transportation);
+    const selectedHealthOption: IFormField | undefined = useTypedSelector(state=>state.simulation.health);
+    const selectedMisc:IFormField[] | undefined = useTypedSelector(state=>state.simulation.mischellaneous);
 
-    const onClear = () => {
-        dispatch(clear());
+    useEffect(() => {
+        form.setFieldsValue({
+            Occupation: selectedJob,
+            Housing: selectedHouseOption,
+            Transportation: selectedCommuteOption,
+            Health: selectedHealthOption,
+            Mischellaneous: selectedMisc
+        })
+    }, [dispatch, form, selectedJob, selectedHouseOption, selectedCommuteOption, selectedHealthOption, selectedMisc]);
+
+    /**
+     * clear local storage and reset the form fields to initial states
+     */
+    const onClear = async () => {
         form.resetFields();
+        dispatch(clear());
         message.success("File successfully deleted");
     };
 
@@ -61,7 +80,45 @@ export const SimulationForm: React.FC<CustomizedSimulationProps> = ({fields}): J
             message.error("File save failed");
         }
     };
-    
+
+    /**
+     * shows an error message when the user try to save an empty form
+     * @param errorInfo 
+     */
+    const onFinishFailed = (errorInfo: any) => {
+        console.log("Failed:", errorInfo);
+        message.error("File save Failed")
+    }
+
+    // listen to each form fiedl value change
+    const handleChange = (value: any,) => {
+        console.log("handle change: ", JSON.stringify(value));
+    }
+
+    // hanlde form field value change
+    const handleValuesChange = (values: any) => {
+        
+        if (form.isFieldTouched("Occupation")) {
+            dispatch(updateJob(values["Occupation"]));
+        }
+        
+        if (form.isFieldTouched("Housing")) {
+            dispatch(updateHousing(values["Housing"]));
+            console.log("getFieldValue", form.getFieldValue("Housing"));
+        }
+
+        if (form.isFieldTouched("Transportation")) {
+            dispatch(updateTransportation(values["Transportation"]));
+        }
+
+        if (form.isFieldTouched("Health")) {
+            dispatch(updateHealth(values["Health"]));
+        }
+
+        if (form.isFieldTouched("Mischellaneous")) {
+            dispatch(updateMischellaneous(values["Mischellaneous"]));
+        }
+    }
 
     return (
         <div>
@@ -74,63 +131,48 @@ export const SimulationForm: React.FC<CustomizedSimulationProps> = ({fields}): J
                 </Tooltip>
             </h2>
             <Form 
+                layout="vertical"
                 name="simulation_global_state"
                 form={form}  
-                onFinish={onFinish} 
                 fields={fields}
-                onFieldsChange={(_, allFields) => {
-                    //onChange(allFields);
-                    console.log("all Fields changes:", JSON.stringify(allFields));
-                }}
                 onValuesChange={(_, allValues) => {
-                    //console.log("all values:", JSON.stringify(allValues));
-                    //console.log("mischellaneous data: ", JSON.stringify(allValues["Mischellaneous"]));
-                    //console.log("housing data: ", JSON.stringify(allValues["housing"]));
-                    dispatch(selectJob(allValues["Occupation"]));
-                    dispatch(selectHousing(allValues["Housing"]));
-                    dispatch(selectCommuteMode(allValues["Transportation"]));
-                    dispatch(setMischellaneous(allValues["Mischellaneous"]));
-                    dispatch(selectHealth(allValues["Health"]));
-                    //console.log("commute:", JSON.stringify(allValues["transportation"]))
+                    console.log("all values:", JSON.stringify(allValues));
+                    handleValuesChange(allValues);
                 }}
                 validateMessages={validateMessages}
+                onFinish={onFinish} 
+                onFinishFailed={onFinishFailed}
             >
                 <div  className = "Form-Components">
-                    <Form.Item name="Occupation" rules={[{required: true}]}>
-                        <Occupation onChange={onchange} value="sim-job"/>
-                    </Form.Item>
+                    <Occupation onJobChange={handleChange} name="Occupation"/>
                 </div>
 
                 <div className = "Form-Components">
-                    <Form.Item name="Housing">
-                        <Housing onChange={onchange} value="housing"/>
-                    </Form.Item>
+                    <Housing handleChange={handleChange} name="Housing" expense={selectedHouseOption?.expense}/>
                 </div>
                 
                 <div className = "Form-Components">
-                    <Form.Item name = "Transportation">
-                        <Transportation onChange={onchange} value="commute"/>
-                    </Form.Item>
+                    <Transportation onChange={handleChange} name="Transportation" expense={selectedCommuteOption?.expense}/>
                 </div>
 
                 <div className = "Form-Components">
-                    <Form.Item name="Health">
-                        <Health onChange={onchange} value="health"/>
-                    </Form.Item>
+                    <Health onChange={handleChange} name="Health" expense={selectedHealthOption?.expense}/>
                 </div>
 
                 <div className = "Form-Components">
                     <Mischellaneous/>
                 </div>
                 
-                <BackTop>
-                    <ArrowUpOutlined/>
-                </BackTop>
                 <div className="Sim-buttons">
                     <Space direction="horizontal" style={{float: "right", margin: 8}}>
                         <Form.Item className="Save-Button">
                             <Tooltip title="All simulation data will be saved on local storage" color={"blue"} key={"blue"}>
-                                <Button type="primary" htmlType="submit" icon={<SaveOutlined />} shape="round">
+                                <Button 
+                                    type="primary" 
+                                    htmlType="submit" 
+                                    icon={<SaveOutlined />} 
+                                    shape="round"
+                                >
                                     Save
                                 </Button>
                             </Tooltip>
