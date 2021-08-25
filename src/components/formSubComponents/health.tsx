@@ -11,12 +11,8 @@ import MedicalIcon from "../../assets/icons/medical.svg";
 import { HealthOptions } from "../../constants/FormOptions";
 import { healthTooltip } from "../../constants/Tooltips";
 import { HealthMessage } from "../../constants/SimHelperContent";
+import { IFormItemProps } from "../../types/simulationType";
 
-interface HealthProps {
-    onChange: any,
-    name: string,
-    expense: number
-}
 
 // Option componect from Ant Select
 const { Option } = Select;
@@ -27,7 +23,7 @@ let index = 0;
  * This is a sub-component that represents Health
  * @returns JSX.Element that represents a question and a dropdown
  */
-export const Health:React.FC<HealthProps> = ({onChange, name, expense}):JSX.Element => {
+export const Health:React.FC<IFormItemProps> = ({name, inputValue, handleChange}):JSX.Element => {
 
     const dispatch = useDispatch();
 
@@ -92,19 +88,19 @@ export const Health:React.FC<HealthProps> = ({onChange, name, expense}):JSX.Elem
                 <Select
                     style={{ width: 200 }}
                     placeholder="Select a housing option"
-                    onChange={onChange}
+                    onChange={handleChange}
                     dropdownRender={menu => (
                     <div>
                         {menu}
                         <Divider style={{ margin: "4px 0" }} />
                         <div style={{ display: "flex", flexWrap: "nowrap", padding: 8 }}>
                             <Input style={{ flex: "auto" }} value={optionState.name.label} onChange={onNameChange} />
-                            <a
+                            <button
                                 style={{ flex: "none", padding: "8px", display: "block", cursor: "pointer" }}
                                 onClick={addItem}
                             >
                                 <PlusCircleOutlined /> Add item
-                            </a>
+                            </button>
                         </div>
                     </div>
                     )}
@@ -121,7 +117,7 @@ export const Health:React.FC<HealthProps> = ({onChange, name, expense}):JSX.Elem
                 {({getFieldValue}) => 
                     getFieldValue(name)?.description !== undefined ? (
                         <Form.Item 
-                            name={[name, "expense"]}
+                            name={[name, "inputValue"]}
                             label="Expense"
                         >
                             <InputNumber
@@ -130,8 +126,8 @@ export const Health:React.FC<HealthProps> = ({onChange, name, expense}):JSX.Elem
                                 formatter={value => `$ ${value}`.replace(inputNumberFormat, ",")}
                                 parser={value => value !== undefined? parseInt(value.replace(inputNumberParser, "")): 0}
                                 style={{ margin: "0 16px" }}
-                                value={expense || undefined}
-                                onChange={onChange}
+                                value={inputValue || undefined}
+                                onChange={handleChange}
                             />
                         </Form.Item>
                     ): null

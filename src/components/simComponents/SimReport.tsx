@@ -6,7 +6,7 @@ import { useTypedSelector } from "../../reducers";
 import JobListElement from "../../types/jobListElement";
 import { IPieChartData} from "../../types/simulationType";
 import NumberFormat from "react-number-format";
-import { IFormField } from "../../types/fieldData";
+import { IFormField } from "../../types/simulationtype";
 
 /**
  * This method renders a pie chart
@@ -32,13 +32,13 @@ export default function SimReport(): JSX.Element {
     const healthDesc = health?.description;
     
     // earnings and expenses
-    const job_earning = parseInt(findSelectedJobWage(JobsList, job.description)) || 0;
+    const job_earning = findSelectedJobWage(JobsList, jobDesc);
 
     // since we collect expenses data for a month, we will multiply by 12 
     // to estimate the yearly expenses
-    const housingExp = 12*housing.expense || 0;
-    const transportationExp = 12*transportation.expense|| 0;
-    const healthExp = 12*health.expense || 0;
+    const housingExp = 12*housing?.inputValue || 0;
+    const transportationExp = 12*transportation?.inputValue|| 0;
+    const healthExp = 12*health?.inputValue || 0;
     
     /**
      * calculates the array of expenses from mischellaneous
@@ -50,7 +50,7 @@ export default function SimReport(): JSX.Element {
         
         const temp:number[] = [];
 
-        _input.forEach(item => item != null && temp.push(12*item.expense));
+        _input.forEach(item => item != null && temp.push(12*item.inputValue));
     
         if (!isEmpty(temp)) {
             total = temp.reduce((first, second) => {return first + second});
@@ -62,13 +62,15 @@ export default function SimReport(): JSX.Element {
     const totalMiscExpense = (mischellaneous !== undefined && !isEmpty(mischellaneous))? calculateTotalMiscExpense(mischellaneous) : 0;
 
     /**
-     * This method finds a wage of the target job 
+     * This method finds a wage of the target job. 
+     * If the target job doesn't exist in the job list, 
+     * it returns the custom wage entered by the user.
      * @param JobList Array<JobListElement>
      * @param target string 
-     * @returns the wage
+     * @returns the wage: number
      */
-    function findSelectedJobWage(JobList: Array<JobListElement>, target: string | undefined): string {
-        return JobList.find((job) => job.value === target)?.average_wage || "Target is not found!";
+    function findSelectedJobWage(JobList: Array<JobListElement>, target: string | undefined): number {
+        return parseInt(JobList.find((job) => job.value === target)?.average_wage || job?.inputValue?.toString() || "0");
     }
     
     /**
@@ -112,7 +114,7 @@ export default function SimReport(): JSX.Element {
      */
      function addToChart(item: IFormField): void {
         const id = item.description || "None";
-        const value = 12* item.expense || 0;
+        const value = 12* item.inputValue || 0;
         const color = "#ef3b2c";
         NewNivoPieChartDataArray.push({"id": id, "value": value, "color": color});
     }
@@ -181,7 +183,7 @@ export default function SimReport(): JSX.Element {
    * @returns true if validateMessages greater tham 100 bucks; otherwise, false.
    */
   function checkExpense(item: IFormField) {
-    return item?.expense > 100;
+    return item?.inputValue > 100;
   }
 
     return (
@@ -204,7 +206,7 @@ export default function SimReport(): JSX.Element {
             <div className="Sim-Balance">
                 <Divider  orientation="left" plain><h3>Data</h3></Divider>
                 <div className="Sim-Balance-Data">
-                    <p className="Sim-Balance-text">Selected job - {job.description || "Nothing is selected"}</p>
+                    <p className="Sim-Balance-text">Selected job - {jobDesc || "Nothing is selected"}</p>
                     <p className="Sim-Balance-text">Annual income - <NumberFormat value={job_earning} displayType={"text"} thousandSeparator={true} prefix={"$"}/></p>
                     <p className="Sim-Balance-text">Monthly expenses - <NumberFormat value={Math.floor(totalExpense/12)} displayType={"text"} thousandSeparator={true} prefix={"$"}/></p>
                     <p className="Sim-Balance-text">Annual savings - <span style={{color: remainingIncome >=0 ? "black": "red"}}><NumberFormat value={remainingIncome} displayType={"text"} thousandSeparator={true} prefix={"$"}/></span></p>

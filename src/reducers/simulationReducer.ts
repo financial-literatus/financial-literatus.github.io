@@ -2,10 +2,10 @@ import { Action } from "../actions/simulationActions";
 import {SimulationActionsTypesEnum  as SimulationAction} from "../types/actions";
 import {ISimulationState, IPieChartData} from "../types/simulationType";
 import AssistantLogo from "../assets/icons/assistant.svg"
-import { IFormField } from "../types/fieldData";
+import { IFormField } from "../types/simulationtype";
 
 const InitFieldState:IFormField = {
-    "expense": 0,
+    "inputValue": 0,
     "description": undefined,
 } 
 
@@ -17,11 +17,11 @@ const InitHelperState = {
 }
 
 // get data from local storage for each category
-const _jobType: ISimulationState["job"] = JSON.parse(localStorage.getItem("job") || JSON.stringify(InitFieldState)) as ISimulationState["job"];
-const _housingType:ISimulationState["housing"] = JSON.parse(localStorage.getItem("housing") || JSON.stringify(InitFieldState)) as ISimulationState["housing"];
-const _transportationType:ISimulationState["transportation"] = JSON.parse(localStorage.getItem("transportation") || JSON.stringify(InitFieldState)) as ISimulationState["transportation"];
-const _healthType: ISimulationState["health"] = JSON.parse(localStorage.getItem("health") || JSON.stringify(InitFieldState)) as ISimulationState["health"];
-const _mischellaneousData:ISimulationState["mischellaneous"] = JSON.parse("[]" || localStorage.getItem("mischellaneous")) as ISimulationState["mischellaneous"];
+const _job: ISimulationState["job"] = JSON.parse(localStorage.getItem("simulation data") || JSON.stringify("{}"))["Occupation"];
+const _housing: ISimulationState["housing"] = JSON.parse(localStorage.getItem("simulation data") || JSON.stringify("{}"))["Housing"];
+const _commute: ISimulationState["transportation"] = JSON.parse(localStorage.getItem("simulation data") || JSON.stringify("{}"))["Transportation"];
+const _health: ISimulationState["health"] = JSON.parse(localStorage.getItem("simulation data") || JSON.stringify("{}"))["Health"];
+const _misc: ISimulationState["mischellaneous"] = JSON.parse(localStorage.getItem("simulation data") || JSON.stringify("{}"))["Mischellaneous"];
 
 // initialize data for pie chart
  const InitialNivoPieChartData: IPieChartData = {
@@ -31,11 +31,11 @@ const _mischellaneousData:ISimulationState["mischellaneous"] = JSON.parse("[]" |
 }
 
 const INITIAL_STATE: ISimulationState = {
-    job: _jobType,
-    housing: _housingType,
-    transportation: _transportationType,
-    health: _healthType,
-    mischellaneous: _mischellaneousData,
+    job: _job,
+    housing: _housing,
+    transportation: _commute,
+    health: _health,
+    mischellaneous: _misc,
 
     InitialNivoPieChartDataArray: [
         InitialNivoPieChartData
@@ -86,11 +86,7 @@ export const simulationReducer = (state: ISimulationState = INITIAL_STATE, actio
             return state;
 
         case SimulationAction.SAVE:
-            localStorage.setItem("job", JSON.stringify(state.job));
-            localStorage.setItem("housing", JSON.stringify(state.housing));
-            localStorage.setItem("transportation", JSON.stringify(state.transportation));
-            localStorage.setItem("health", JSON.stringify(state.health));
-            localStorage.setItem("mischellaneous", JSON.stringify(state.mischellaneous));
+            localStorage.setItem("simulation data", JSON.stringify(action.payload));
             return state;
         
         case SimulationAction.CLEAR:
@@ -104,10 +100,11 @@ export const simulationReducer = (state: ISimulationState = INITIAL_STATE, actio
             return state;
 
         case SimulationAction.LOAD_FROM_LOCAL_STORAGE:
-            state.job = JSON.parse(localStorage.getItem("job") || "") as ISimulationState["job"];            state.housing = JSON.parse(localStorage.getItem("housing") || "{}") as ISimulationState["housing"];
-            state.transportation = JSON.parse(localStorage.getItem("transportation") || "{}") as ISimulationState["transportation"];
-            state.health = JSON.parse(localStorage.getItem("health") || "{}") as ISimulationState["health"];
-            state.mischellaneous = JSON.parse(localStorage.getItem("mischellaneous") || "[null]") as ISimulationState["mischellaneous"];
+            state.job = JSON.parse(localStorage.getItem("simulation data") || JSON.stringify("{}"))["Occupation"];            
+            state.housing = JSON.parse(localStorage.getItem("simulation data") || JSON.stringify("{}"))["Housing"];
+            state.transportation = JSON.parse(localStorage.getItem("simulation data") || JSON.stringify("{}"))["Transportation"];
+            state.health = JSON.parse(localStorage.getItem("simulation data") || JSON.stringify("{}"))["Health"];
+            state.mischellaneous = JSON.parse(localStorage.getItem("simulation data") || JSON.stringify("{}"))["Mischellaneous"];
             return state;
 
         default:

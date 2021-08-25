@@ -1,4 +1,4 @@
-import { AutoComplete, Form, Input} from "antd";
+import { AutoComplete, Form, InputNumber} from "antd";
 import { useDispatch } from "react-redux";
 import {updateHelperContent } from "../../actions/simulationActions";
 import JobsList from "../../assets/JobList.json";
@@ -7,19 +7,20 @@ import OccupationHelperList from "../../assets/OccupationHelperList.json";
 import SearchJob from "../../assets/icons/search-job.svg"
 import { jobTooltip } from "../../constants/Tooltips";
 import { JobMessage } from "../../constants/SimHelperContent";
+import { inputNumberFormat, inputNumberParser } from "./regex";
+import { IFormItemProps } from "../../types/simulationType";
 
-interface SimJobProps {
-  onJobChange: any,
-  name: string,
-}
 /**
  * This is a react function component for occupation. 
  * @param props are question string and dispatch function
  * @returns a JSX Element that represents part of a form for asking user's occupation
  */
-export const Occupation: React.FC<SimJobProps> = ({onJobChange, name}) => {
+export const Occupation: React.FC<IFormItemProps> = ({name, inputValue, handleChange}) => {
 
   const dispatch = useDispatch();
+
+  // unknown wage filtered list
+  const filteredList = JobsList.filter((job) => job.average_wage !== "Unknown" && job) as JobListElement[];
 
   // content inside simulation assistant for occupation
   const occupationContent = {
@@ -34,20 +35,19 @@ export const Occupation: React.FC<SimJobProps> = ({onJobChange, name}) => {
   <div onClick={() => dispatch(updateHelperContent(occupationContent))}>
     <Form.Item
       label={name} 
-      required 
+      rules={[{required: true}]} 
       tooltip = {jobTooltip}
       name={[name, "description"]}
     >
       <AutoComplete
         allowClear
         style={{ width: 200 }}
-        options={JobsList.filter((job) => {if (job.average_wage !== "Unknown") return job }) as JobListElement[]}
-        onChange={onJobChange}
+        options={filteredList}
+        onChange={handleChange}
         placeholder="Type your occupation here"
         filterOption={(inputValue, option) =>
           option?.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
         }
-        notFoundContent="Data not found"
     />
     </Form.Item>
     <Form.Item
@@ -55,12 +55,19 @@ export const Occupation: React.FC<SimJobProps> = ({onJobChange, name}) => {
       shouldUpdate
     >
       {({getFieldValue}) =>
-        getFieldValue(name)?.description !== undefined? (
+        getFieldValue(name)?.description !== undefined && 
+        filteredList.findIndex((job) => job.value === getFieldValue(name)?.description) === -1
+        ? (
           <Form.Item
-            name={[name, "earnings"]}
+            name={[name, "inputValue"]}
             label="Job Earnings"
           >
-            <Input/>
+            <InputNumber
+              formatter={value => `$ ${value}`.replace(inputNumberFormat, ",")}
+              parser={value => value !== undefined? parseInt(value.replace(inputNumberParser, "")): 0}
+              style={{ margin: "0 16px" }}
+              value={inputValue}
+            />
           </Form.Item>
         ): null
       }

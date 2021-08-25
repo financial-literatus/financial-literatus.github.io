@@ -1,7 +1,7 @@
 import {IPieChartData} from "../types/simulationType";
 import {SimulationActionsTypesEnum  as SimulationAction} from "../types/actions";
 import { IHelperContentElement } from "../types/helperContentElement";
-import { IFormField } from "../types/fieldData";
+import { IFormField } from "../types/simulationtype";
 
 // ********************* ACTIONS FOR FORM ********************* //
 export type Action =
@@ -11,7 +11,7 @@ export type Action =
   | { type: SimulationAction.UPDATE_HEALTH, payload: IFormField}
   | { type: SimulationAction.UPDATE_MISCHELLANEOUS, payload: Array<IFormField>}
   | { type: SimulationAction.CLEAR }
-  | { type: SimulationAction.SAVE }
+  | { type: SimulationAction.SAVE, payload: any}
   | { type: SimulationAction.LOAD_INITIAL_PIE_CHART}
   | { type: SimulationAction.UPDATE_PIE_CHART, payload: Array<IPieChartData>}
   | { type: SimulationAction.UPDATE_CONTENT, payload: IHelperContentElement}
@@ -68,7 +68,8 @@ export const clear = (): Action => ({
   type: SimulationAction.CLEAR,
 });
 
-export const save = (): Action => ({
+export const save = (_payload: any): Action => ({
   type: SimulationAction.SAVE,
+  payload: _payload
 })
 // ****************************************************************** //

@@ -30,7 +30,7 @@ export const SimulationHelper: React.FC = (): JSX.Element => {
             </div>
             <div className="Container-Helper-main">
                 <div className="Sim-Helper-Icons">
-                    <img className="flaticon" alt ="image" src={flaticon}></img>
+                    <img className="flaticon" alt ="assistant" src={flaticon}></img>
                 </div>
                 <div className="Sim-Helper-Message">
                     <p>{message}</p>

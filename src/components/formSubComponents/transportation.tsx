@@ -11,12 +11,7 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import TransportationIcon from "../../assets/icons/transportation.svg";
 import { commuteTooltip } from "../../constants/Tooltips";
 import { CommuteMessage } from "../../constants/SimHelperContent";
-
-interface CommuteProps {
-    onChange: any,
-    name: string,
-    expense: number
-}
+import { IFormItemProps } from "../../types/simulationType";
 
 // Option componect from Ant Select
 const { Option } = Select;
@@ -26,7 +21,7 @@ let index = 0;
  * 
  * @returns JSX.Element that represents a question form 
  */
-export const Transportation:React.FC<CommuteProps> = ({onChange, name, expense}) => {
+export const Transportation:React.FC<IFormItemProps> = ({name, inputValue, handleChange}) => {
     const dispatch = useDispatch();
 
     // content of transportation for sim helper
@@ -81,19 +76,19 @@ export const Transportation:React.FC<CommuteProps> = ({onChange, name, expense})
                 <Select
                     placeholder="Select a transportation mode"
                     style={{ width: 200 }}
-                    onChange={onChange}
+                    onChange={handleChange}
                     dropdownRender={menu => (
                         <div>
                             {menu}
                             <Divider style={{ margin: "4px 0" }} />
                             <div style={{ display: "flex", flexWrap: "nowrap", padding: 8 }}>
                                 <Input style={{ flex: "auto" }} value={optionState.name.label} onChange={onNameChange} />
-                                <a
+                                <button
                                     style={{ flex: "none", padding: "8px", display: "block", cursor: "pointer" }}
                                     onClick={addItem}
                                 >
                                     <PlusCircleOutlined /> Add item
-                                </a>
+                                </button>
                             </div>
                         </div>
                         )}
@@ -110,7 +105,7 @@ export const Transportation:React.FC<CommuteProps> = ({onChange, name, expense})
                 {({getFieldValue}) => 
                     getFieldValue("Transportation")?.description !== undefined ? (
                         <Form.Item 
-                            name={[name, "expense"]}
+                            name={[name, "inputValue"]}
                             label="Expense"
                         >
                             <InputNumber
@@ -119,8 +114,8 @@ export const Transportation:React.FC<CommuteProps> = ({onChange, name, expense})
                                 formatter={value => `$ ${value}`.replace(inputNumberFormat, ",")}
                                 parser={value => value !== undefined? parseInt(value.replace(inputNumberParser, "")): 0}
                                 style={{ margin: "0 16px" }}
-                                value={expense}
-                                onChange={onChange}
+                                value={inputValue}
+                                onChange={handleChange}
                             />
                         </Form.Item>
                     ): null

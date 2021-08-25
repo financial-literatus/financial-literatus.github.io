@@ -1,7 +1,7 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Input, Button, Space, InputNumber, Tooltip } from "antd";
-import { MinusCircleOutlined, PlusOutlined, QuestionCircleOutlined} from "@ant-design/icons";
+import { Form, Input, Button, Space, InputNumber} from "antd";
+import { MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import { inputNumberFormat, inputNumberParser } from "./regex";
 import { useDispatch } from "react-redux";
 import { updateHelperContent } from "../../actions/simulationActions";
@@ -53,8 +53,8 @@ export const Mischellaneous:React.FC = () => {
                                     </Form.Item>
                                     <Form.Item
                                         {...restField}
-                                        name={[name, "expense"]}
-                                        fieldKey={[fieldKey, "expense"]}
+                                        name={[name, "inputValue"]}
+                                        fieldKey={[fieldKey, "inputValue"]}
                                         rules={[
                                             { required: true},
                                             { type: "number", min: 0, max: 9999} 

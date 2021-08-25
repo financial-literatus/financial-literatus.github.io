@@ -11,12 +11,7 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import FindingHouse from "../../assets/icons/finding.svg";
 import { housingTooltip } from "../../constants/Tooltips";
 import { HousingMessage } from "../../constants/SimHelperContent";
-
-interface HousingProps {
-    name: string,
-    expense: number,
-    handleChange: any;
-}
+import { IFormItemProps } from "../../types/simulationType";
 
 // Option componect from Ant Select
 const { Option } = Select;
@@ -27,7 +22,7 @@ let index = 0;
  * @returns a JSX Element that represents a question and a dropdown 
  */
 
-export const Housing:React.FC<HousingProps> = ({handleChange, name, expense}): JSX.Element => {
+export const Housing:React.FC<IFormItemProps> = ({handleChange, name, inputValue}): JSX.Element => {
     const dispatch = useDispatch();
 
     // content of housing for sim helper
@@ -98,12 +93,12 @@ export const Housing:React.FC<HousingProps> = ({handleChange, name, expense}): J
                         <Divider style={{ margin: "4px 0" }} />
                         <div style={{ display: "flex", flexWrap: "nowrap", padding: 8 }}>
                             <Input style={{ flex: "auto" }} value={optionState.name.label} onChange={onNameChange} />
-                            <a
+                            <button
                                 style={{ flex: "none", padding: "8px", display: "block", cursor: "pointer" }}
                                 onClick={addItem}
                             >
                                 <PlusCircleOutlined /> Add item
-                            </a>
+                            </button>
                         </div>
                     </div>
                     )}
@@ -120,7 +115,7 @@ export const Housing:React.FC<HousingProps> = ({handleChange, name, expense}): J
                 {({getFieldValue, isFieldTouched}) => 
                     getFieldValue(name)?.description !== undefined || isFieldTouched(name)? (
                         <Form.Item 
-                            name={[name, "expense"]}
+                            name={[name, "inputValue"]}
                             label="Expense"
                         >
                             <InputNumber
@@ -129,7 +124,7 @@ export const Housing:React.FC<HousingProps> = ({handleChange, name, expense}): J
                                 formatter={value => `$ ${value}`.replace(inputNumberFormat, ",")}
                                 parser={value => value !== undefined? parseInt(value.replace(inputNumberParser, "")): 0}
                                 style={{ margin: "0 16px" }}
-                                value={expense}
+                                value={inputValue}
                             />
                         </Form.Item>
                     ): null

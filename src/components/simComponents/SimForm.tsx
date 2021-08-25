@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { clear, updateHousing, updateMischellaneous, save, updateTransportation, updateJob, updateHealth} from "../../actions/simulationActions";
 import { useTypedSelector } from "../../reducers";
-import { IFormField } from "../../types/fieldData";
+import { IFormField } from "../../types/simulationtype";
 import { Health } from "../formSubComponents/health";
 import { Housing } from "../formSubComponents/housing";
 import { Mischellaneous } from "../formSubComponents/miscellaneous";
@@ -24,12 +24,14 @@ export interface CustomizedSimulationProps {
 
 // form input fields validation
 const validateMessages = {
-    required: "${label} is required!",
+    // eslint-disable-next-line no-template-curly-in-string
+    required: "'${name}' is required!",
     types: {
-        number: "${label} is not a valid number!"
+        number: "$'{name}' is not a valid number!"
     },
     number: {
-        range: "${label} must be between ${min} and ${max}",
+        // eslint-disable-next-line no-template-curly-in-string
+        range: "$'{name}' must be between ${min} and ${max}",
     },
 }
 
@@ -74,7 +76,7 @@ export const SimulationForm: React.FC<CustomizedSimulationProps> = ({fields}): J
      */
     const onFinish = (values: any) => {
         try {
-            dispatch(save());
+            dispatch(save(values));
             message.success("File successfully saved");
         } catch (error) {
             message.error("File save failed");
@@ -104,7 +106,6 @@ export const SimulationForm: React.FC<CustomizedSimulationProps> = ({fields}): J
         
         if (form.isFieldTouched("Housing")) {
             dispatch(updateHousing(values["Housing"]));
-            console.log("getFieldValue", form.getFieldValue("Housing"));
         }
 
         if (form.isFieldTouched("Transportation")) {
@@ -144,19 +145,19 @@ export const SimulationForm: React.FC<CustomizedSimulationProps> = ({fields}): J
                 onFinishFailed={onFinishFailed}
             >
                 <div  className = "Form-Components">
-                    <Occupation onJobChange={handleChange} name="Occupation"/>
+                    <Occupation handleChange={handleChange} name="Occupation" inputValue={selectedJob?.inputValue}/>
                 </div>
 
                 <div className = "Form-Components">
-                    <Housing handleChange={handleChange} name="Housing" expense={selectedHouseOption?.expense}/>
+                    <Housing handleChange={handleChange} name="Housing" inputValue={selectedHouseOption?.inputValue}/>
                 </div>
                 
                 <div className = "Form-Components">
-                    <Transportation onChange={handleChange} name="Transportation" expense={selectedCommuteOption?.expense}/>
+                    <Transportation handleChange={handleChange} name="Transportation" inputValue={selectedCommuteOption?.inputValue}/>
                 </div>
 
                 <div className = "Form-Components">
-                    <Health onChange={handleChange} name="Health" expense={selectedHealthOption?.expense}/>
+                    <Health handleChange={handleChange} name="Health" inputValue={selectedHealthOption?.inputValue}/>
                 </div>
 
                 <div className = "Form-Components">

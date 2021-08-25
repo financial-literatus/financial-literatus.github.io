@@ -1,5 +1,4 @@
 import { IHelperContentElement } from "./helperContentElement";
-import {IFormField} from "./fieldData";
 
 /**
  * Pie Chart Data Interface
@@ -23,3 +22,20 @@ export interface ISimulationState {
     "NewNivoPieChartDataArray"?: Array<IPieChartData>;
     "helperContent": IHelperContentElement;
 }
+
+/**
+ * Form Interface
+ */
+export interface IFormItemProps {
+  name: string,
+  inputValue: number,
+  handleChange: any
+}
+
+/**
+ * Form Field Interface
+ */
+export interface IFormField {
+  "inputValue": number,
+  "description": string | undefined,
+};
