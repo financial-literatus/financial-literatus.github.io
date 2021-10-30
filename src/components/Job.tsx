@@ -20,6 +20,7 @@ import NumberFormat from "react-number-format";
  */
 export function Job(): JSX.Element {
   const dispatch = useDispatch();
+  
 
   // Updatable elements
   const label = useTypedSelector((state) => state.showcase.label);
@@ -59,7 +60,7 @@ export function Job(): JSX.Element {
     }
 
 
-    /**
+    /** 
      * Returns URL based on the current job label.
      *
      * @returns URL

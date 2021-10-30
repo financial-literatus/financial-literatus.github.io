@@ -28,7 +28,7 @@ const initialState = {
     article_selected: 0,
     articles_completed: _articlesCompleted,
     articles_marked: _articlesMarked,
-    articles_buttons_text: _articlesButtonsText
+    articles_buttons_texte: _articlesButtonsText
 };
 
 export const educationReducer = ( state: EducationState = initialState, action: EducationAction ) => {
